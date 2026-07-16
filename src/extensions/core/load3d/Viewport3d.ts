@@ -183,7 +183,9 @@ export class Viewport3d {
 
   private renderView(): void {
     this.view.beginRender()
+    this.runPreRenderCallbacks()
     this.renderMainScene()
+    this.runPostRenderCallbacks()
 
     this.renderer.setScissorTest(false)
     this.viewHelperManager.render(
@@ -192,6 +194,33 @@ export class Viewport3d {
     )
 
     this.view.blit()
+  }
+
+  private readonly preRenderCallbacks: Array<() => void> = []
+  private readonly postRenderCallbacks: Array<() => void> = []
+
+  addPreRenderCallback(cb: () => void): () => void {
+    this.preRenderCallbacks.push(cb)
+    return () => {
+      const i = this.preRenderCallbacks.indexOf(cb)
+      if (i >= 0) this.preRenderCallbacks.splice(i, 1)
+    }
+  }
+
+  addPostRenderCallback(cb: () => void): () => void {
+    this.postRenderCallbacks.push(cb)
+    return () => {
+      const i = this.postRenderCallbacks.indexOf(cb)
+      if (i >= 0) this.postRenderCallbacks.splice(i, 1)
+    }
+  }
+
+  private runPreRenderCallbacks(): void {
+    for (const cb of [...this.preRenderCallbacks]) cb()
+  }
+
+  private runPostRenderCallbacks(): void {
+    for (const cb of [...this.postRenderCallbacks]) cb()
   }
 
   protected tickPerFrame(delta: number): void {
@@ -351,6 +380,11 @@ export class Viewport3d {
 
   getCameraState(): CameraState {
     return this.cameraManager.getCameraState()
+  }
+
+  setUseCustomUp(use: boolean): void {
+    this.cameraManager.setUseCustomUp(use)
+    this.forceRender()
   }
 
   setTargetSize(width: number, height: number): void {
