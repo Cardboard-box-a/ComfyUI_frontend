@@ -6,8 +6,13 @@ interface DatadogRumDurationVitalOptions {
   context?: Record<string, unknown>
 }
 
+interface DatadogRumInternalContext {
+  view?: { id?: string }
+}
+
 interface DatadogRumClient {
   addDurationVital(name: string, options: DatadogRumDurationVitalOptions): void
+  getInternalContext(startTime?: number): DatadogRumInternalContext | undefined
 }
 
 interface WindowWithDatadogRum extends Window {
@@ -23,12 +28,15 @@ export class DatadogRumTelemetryProvider implements TelemetryProvider {
     startTime,
     outcome
   }: ExecutionOutcomeMetadata): void {
-    getDatadogRum()?.addDurationVital('workflow_execution', {
+    const rum = getDatadogRum()
+    const originViewId = rum?.getInternalContext(startTime)?.view?.id
+    rum?.addDurationVital('workflow_execution', {
       startTime: performance.timeOrigin + startTime,
       duration: performance.now() - startTime,
       context: {
         outcome,
-        product: 'cloud_generation'
+        product: 'cloud_generation',
+        ...(originViewId && { origin_view_id: originViewId })
       }
     })
   }
