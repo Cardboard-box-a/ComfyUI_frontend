@@ -3,6 +3,9 @@
     "dockToTop": "עיגון למעלה",
     "feedback": "משוב",
     "feedbackTooltip": "משוב",
+    "freeTierPartner": "צמתים של שותפים דורשים תוכנית בתשלום",
+    "freeTierRuns": "{available} / {MAX_AVAILABLE} הרצות נותרו",
+    "freeTierRunsExhausted": "לא נותרו הרצות",
     "share": "שיתוף",
     "shareTooltip": "שיתוף תהליך העבודה"
   },
@@ -785,6 +788,11 @@
       "gpuUsage": "שימוש ב-GPU"
     },
     "faqs": "שאלות נפוצות",
+    "insufficient": {
+      "memberCta": "הבנתי",
+      "memberDescription": "הצוות שלך השתמש בכל הקרדיטים. מנהלי סביבת העבודה צריכים להוסיף קרדיטים נוספים כדי להפעיל תהליכי עבודה.",
+      "memberTitle": "לסביבת עבודה זו אזלו הקרדיטים"
+    },
     "invoiceHistory": "היסטוריית חשבוניות",
     "lastUpdated": "עודכן לאחרונה",
     "loadEventsError": "טעינת הפעילות נכשלה. אנא נסו שוב.",
@@ -1452,6 +1460,9 @@
     "noExportsInQueue": "אין ייצואי {filter} בתור",
     "preparingExport": "מכין ייצוא...",
     "retryDownload": "נסה להוריד שוב"
+  },
+  "feedback": {
+    "title": "שתף משוב"
   },
   "g": {
     "1x": "1x",
@@ -2783,7 +2794,6 @@
     "accept": "בטח, אשמח לעזור!",
     "description": "השתמשת בתכונה זו. האם תוכל להקדיש רגע לשיתוף המשוב שלך?",
     "dontAskAgain": "אל תשאל שוב",
-    "loadError": "טעינת הסקר נכשלה. אנא נסה שוב מאוחר יותר.",
     "notNow": "לא עכשיו",
     "title": "עזרו לנו להשתפר"
   },
@@ -2798,6 +2808,7 @@
     "ElevenLabs": "ElevenLabs",
     "Gemini": "Gemini",
     "Grok": "Grok",
+    "HeyGen": "HeyGen",
     "HitPaw": "HitPaw",
     "Ideogram": "Ideogram",
     "Kling": "Kling",
@@ -2827,6 +2838,7 @@
     "ace": "ace",
     "adjustments": "adjustments",
     "advanced": "advanced",
+    "anima": "anima",
     "animate": "אנימציה",
     "attention_experiments": "attention_experiments",
     "audio": "audio",
@@ -2870,6 +2882,7 @@
     "image": "image",
     "infinite talk": "infinite talk",
     "instructpix2pix": "instructpix2pix",
+    "joyimage": "joyimage",
     "kandinsky": "kandinsky",
     "latent": "latent",
     "loaders": "loaders",
@@ -2882,6 +2895,7 @@
     "mochi": "mochi",
     "model": "model",
     "model specific": "מותאם למודל",
+    "model_patches": "model_patches",
     "move": "move",
     "multigpu": "multigpu",
     "noise": "noise",
@@ -4262,6 +4276,9 @@
     "useApiKeyTip": "טיפ: לא מצליח לגשת להתחברות הרגילה? השתמש באפשרות מפתח ה-API של Comfy.",
     "userNotAuthenticated": "המשתמש לא אומת"
   },
+  "typeform": {
+    "loadError": "טעינת הטופס נכשלה. נסה שוב מאוחר יותר."
+  },
   "userSelect": {
     "enterUsername": "הזן שם משתמש",
     "existingUser": "משתמש קיים",
@@ -4397,6 +4414,32 @@
     }
   },
   "workspacePanel": {
+    "billingStatus": {
+      "ending": {
+        "body": "החברים ימשיכו לקבל גישה מלאה עד אז. הפעל מחדש כדי לשמור על הקרדיטים והמושבים המשותפים.",
+        "reactivate": "הפעל מחדש את התוכנית",
+        "title": "תוכנית הצוות שלך מסתיימת ב־{date}"
+      },
+      "outOfCredits": {
+        "addCredits": "הוסף קרדיטים",
+        "body": "הצוות שלך השתמש בכל הקרדיטים. הוסף קרדיטים כדי להמשיך ביצירה או המתן למילוי הקרדיטים ב־{date}.",
+        "bodyNoDate": "הצוות שלך השתמש בכל הקרדיטים. הוסף קרדיטים כדי להמשיך ביצירה.",
+        "dismiss": "סגור",
+        "memberBody": "הצוות שלך השתמש בכל הקרדיטים. מנהלי סביבת העבודה צריכים להוסיף קרדיטים כדי להמשיך ביצירה.",
+        "title": "אזלו הקרדיטים"
+      },
+      "paused": {
+        "body": "המנוי של סביבת עבודה זו מושהה. עדכן אמצעי תשלום כדי להמשיך.",
+        "memberBody": "המנוי של סביבת עבודה זו מושהה. מנהלי סביבת העבודה צריכים לעדכן את אמצעי התשלום.",
+        "title": "המנוי מושהה"
+      },
+      "updatePayment": "עדכן אמצעי תשלום",
+      "warning": {
+        "body": "התשלום האחרון שלך לא עבר. המנוי יושהה ב־{date} אלא אם יעדכן אמצעי תשלום.",
+        "bodyNoDate": "התשלום האחרון שלך לא עבר. עדכן אמצעי תשלום כדי למנוע השהיה.",
+        "title": "התשלום נדחה"
+      }
+    },
     "changeRoleDialog": {
       "demoteConfirm": "הורד לחבר רגיל",
       "demoteMessage": "הגישה הניהולית תוסר.",

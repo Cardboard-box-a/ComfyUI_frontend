@@ -3,6 +3,9 @@
     "dockToTop": "Fixar no topo",
     "feedback": "Feedback",
     "feedbackTooltip": "Feedback",
+    "freeTierPartner": "Nodes parceiros exigem um plano pago",
+    "freeTierRuns": "{available} / {MAX_AVAILABLE} execuções restantes",
+    "freeTierRunsExhausted": "Sem execuções restantes",
     "share": "Compartilhar",
     "shareTooltip": "Compartilhar fluxo de trabalho"
   },
@@ -785,6 +788,11 @@
       "gpuUsage": "Uso de GPU"
     },
     "faqs": "Perguntas frequentes",
+    "insufficient": {
+      "memberCta": "Ok, entendi",
+      "memberDescription": "Sua equipe usou todos os créditos. Os administradores do workspace precisam adicionar mais créditos para executar fluxos de trabalho.",
+      "memberTitle": "Este workspace está sem créditos"
+    },
     "invoiceHistory": "Histórico de faturas",
     "lastUpdated": "Última atualização",
     "loadEventsError": "Falha ao carregar a atividade. Por favor, tente novamente.",
@@ -1452,6 +1460,9 @@
     "noExportsInQueue": "Nenhuma exportação de {filter} na fila",
     "preparingExport": "Preparando exportação...",
     "retryDownload": "Tentar baixar novamente"
+  },
+  "feedback": {
+    "title": "Enviar feedback"
   },
   "g": {
     "1x": "1x",
@@ -2783,7 +2794,6 @@
     "accept": "Claro, vou ajudar!",
     "description": "Você tem usado este recurso. Pode dedicar um momento para compartilhar seu feedback?",
     "dontAskAgain": "Não perguntar novamente",
-    "loadError": "Falha ao carregar a pesquisa. Por favor, tente novamente mais tarde.",
     "notNow": "Agora não",
     "title": "Ajude-nos a melhorar"
   },
@@ -2798,6 +2808,7 @@
     "ElevenLabs": "ElevenLabs",
     "Gemini": "Gemini",
     "Grok": "Grok",
+    "HeyGen": "HeyGen",
     "HitPaw": "HitPaw",
     "Ideogram": "Ideogram",
     "Kling": "Kling",
@@ -2827,6 +2838,7 @@
     "ace": "ace",
     "adjustments": "ajustes",
     "advanced": "avançado",
+    "anima": "anima",
     "animate": "animar",
     "attention_experiments": "experimentos_de_atenção",
     "audio": "áudio",
@@ -2870,6 +2882,7 @@
     "image": "imagem",
     "infinite talk": "infinite talk",
     "instructpix2pix": "instructpix2pix",
+    "joyimage": "joyimage",
     "kandinsky": "kandinsky",
     "latent": "latente",
     "loaders": "carregadores",
@@ -2882,6 +2895,7 @@
     "mochi": "mochi",
     "model": "modelo",
     "model specific": "modelo específico",
+    "model_patches": "model_patches",
     "move": "move",
     "multigpu": "multigpu",
     "noise": "ruído",
@@ -4262,6 +4276,9 @@
     "useApiKeyTip": "Dica: Não consegue acessar o login normal? Use a opção Comfy API Key.",
     "userNotAuthenticated": "Usuário não autenticado"
   },
+  "typeform": {
+    "loadError": "Falha ao carregar o formulário. Por favor, tente novamente mais tarde."
+  },
   "userSelect": {
     "enterUsername": "Digite um nome de usuário",
     "existingUser": "Usuário existente",
@@ -4397,6 +4414,32 @@
     }
   },
   "workspacePanel": {
+    "billingStatus": {
+      "ending": {
+        "body": "Os membros mantêm acesso total até lá. Reative para manter seus créditos e vagas compartilhados.",
+        "reactivate": "Reativar plano",
+        "title": "O plano da sua equipe termina em {date}"
+      },
+      "outOfCredits": {
+        "addCredits": "Adicionar créditos",
+        "body": "Sua equipe usou todos os créditos. Adicione mais créditos para continuar gerando ou aguarde até o recarregamento em {date}.",
+        "bodyNoDate": "Sua equipe usou todos os créditos. Adicione mais créditos para continuar gerando.",
+        "dismiss": "Dispensar",
+        "memberBody": "Sua equipe usou todos os créditos. Os administradores do workspace precisam adicionar mais créditos para continuar gerando.",
+        "title": "Sem créditos"
+      },
+      "paused": {
+        "body": "A assinatura deste workspace está pausada. Atualize o pagamento para retomar.",
+        "memberBody": "A assinatura deste workspace está pausada. Os administradores do workspace precisam atualizar o método de pagamento.",
+        "title": "Assinatura pausada"
+      },
+      "updatePayment": "Atualizar pagamento",
+      "warning": {
+        "body": "Seu último pagamento não foi processado. Sua assinatura será pausada em {date} caso o pagamento não seja atualizado.",
+        "bodyNoDate": "Seu último pagamento não foi processado. Atualize o pagamento para evitar a pausa.",
+        "title": "Pagamento recusado"
+      }
+    },
     "changeRoleDialog": {
       "demoteConfirm": "Rebaixar para membro",
       "demoteMessage": "Ele(a) perderá acesso de administrador.",

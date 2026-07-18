@@ -177,6 +177,32 @@
       }
     }
   },
+  "AnimaLLLiteApply": {
+    "display_name": "Anima LLLite 적용",
+    "inputs": {
+      "end_percent": {
+        "name": "종료 비율"
+      },
+      "image": {
+        "name": "image"
+      },
+      "mask": {
+        "name": "mask"
+      },
+      "model": {
+        "name": "model"
+      },
+      "model_patch": {
+        "name": "model_patch"
+      },
+      "start_percent": {
+        "name": "시작 비율"
+      },
+      "strength": {
+        "name": "강도"
+      }
+    }
+  },
   "AudioAdjustVolume": {
     "description": "오디오의 볼륨을 데시벨(dB) 단위로 지정한 만큼 조절합니다.",
     "display_name": "오디오 볼륨 조절",
@@ -5853,6 +5879,212 @@
       "watermark": {
         "name": "watermark",
         "tooltip": "AI 생성 워터마크를 결과에 추가할지 여부입니다."
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenAvatarVideoNode": {
+    "description": "HeyGen 아바타로부터 발표자 영상을 생성합니다. HeyGen의 가장 인기 있는 공개 아바타가 포함되어 있으며, look ID를 입력하여 원하는 아바타로 대체할 수 있습니다.",
+    "display_name": "HeyGen 아바타 비디오",
+    "inputs": {
+      "aspect_ratio": {
+        "name": "종횡비",
+        "tooltip": "출력 종횡비입니다. 'auto'는 아바타의 원본 영상을 따릅니다."
+      },
+      "background_color": {
+        "name": "배경색",
+        "tooltip": "선택 사항인 단색 배경(hex 코드, 예: '#00ff00'). 비워두면 아바타의 원래 배경을 사용합니다."
+      },
+      "control_after_generate": {
+        "name": "생성 후 제어"
+      },
+      "custom_avatar_id": {
+        "name": "custom_avatar_id",
+        "tooltip": "선택 사항인 HeyGen 아바타 look ID입니다. 설정 시 위에서 선택한 아바타를 대체합니다. HeyGen의 3000개 이상의 공개 look(또는 개인 아바타)을 사용할 수 있습니다."
+      },
+      "engine": {
+        "name": "엔진",
+        "tooltip": "렌더링 엔진입니다. 각 선택지는 해당 엔진을 지원하는 아바타만 표시합니다. 'auto'는 모든 아바타를 제공하며 최적의 엔진(Avatar IV 우선)을 선택합니다. Avatar V는 가장 높은 품질, Avatar III는 가장 경제적입니다."
+      },
+      "engine_avatar": {
+        "name": "아바타"
+      },
+      "resolution": {
+        "name": "해상도",
+        "tooltip": "출력 비디오 해상도입니다."
+      },
+      "seed": {
+        "name": "시드",
+        "tooltip": "HeyGen으로 전송되지 않습니다. 값을 변경하면 다시 실행됩니다."
+      },
+      "speech": {
+        "name": "음성",
+        "tooltip": "텍스트 스크립트(HeyGen 텍스트-음성 변환) 또는 직접 녹음한 오디오로 아바타를 구동합니다."
+      },
+      "speech_custom_voice_id": {
+        "name": "custom_voice_id"
+      },
+      "speech_text": {
+        "name": "텍스트"
+      },
+      "speech_voice": {
+        "name": "음성"
+      },
+      "speech_voice_speed": {
+        "name": "음성 속도"
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenCreateAvatarNode": {
+    "description": "사람의 사진이나 텍스트 프롬프트(생성된 캐릭터)로 나만의 HeyGen 아바타를 만듭니다. 생성된 avatar_id를 HeyGen 아바타 비디오의 custom_avatar_id에 입력하고, 나중에 재사용할 수 있도록 ID를 저장하세요.",
+    "display_name": "HeyGen 아바타 생성",
+    "inputs": {
+      "source": {
+        "name": "소스",
+        "tooltip": "텍스트 프롬프트로 새로운 캐릭터를 생성하거나, 연결된 인물 사진으로 아바타를 만듭니다."
+      },
+      "source_prompt": {
+        "name": "프롬프트"
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "avatar_id",
+        "tooltip": "아바타 look ID입니다. HeyGen 아바타 비디오의 custom_avatar_id에 전달하고, 나중에 아바타를 재사용하려면 저장하세요."
+      },
+      "1": {
+        "name": "미리보기",
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenTalkingPhotoNode": {
+    "description": "사람의 이미지를 입 모양이 동기화된 토킹 비디오(헤이젠 아바타 IV)로 애니메이션화합니다. 텍스트 스크립트나 직접 녹음한 오디오로 구동할 수 있습니다.",
+    "display_name": "HeyGen 토킹 포토",
+    "inputs": {
+      "aspect_ratio": {
+        "name": "aspect_ratio",
+        "tooltip": "출력 종횡비입니다. 'auto'는 입력 이미지를 따릅니다."
+      },
+      "control_after_generate": {
+        "name": "control after generate"
+      },
+      "expressiveness": {
+        "name": "expressiveness",
+        "tooltip": "애니메이션 얼굴과 제스처의 표현력 정도입니다."
+      },
+      "image": {
+        "name": "image",
+        "tooltip": "애니메이션화할 인물 이미지입니다. 2K보다 크면 자동으로 축소됩니다."
+      },
+      "resolution": {
+        "name": "resolution",
+        "tooltip": "출력 비디오 해상도입니다."
+      },
+      "seed": {
+        "name": "seed",
+        "tooltip": "HeyGen으로 전송되지 않습니다. 값을 변경하면 다시 실행됩니다."
+      },
+      "speech": {
+        "name": "speech",
+        "tooltip": "아바타를 텍스트 스크립트(헤이젠 텍스트-투-스피치) 또는 직접 녹음한 오디오로 구동합니다."
+      },
+      "speech_custom_voice_id": {
+        "name": "custom_voice_id"
+      },
+      "speech_text": {
+        "name": "text"
+      },
+      "speech_voice": {
+        "name": "voice"
+      },
+      "speech_voice_speed": {
+        "name": "voice_speed"
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenTextToSpeechNode": {
+    "description": "HeyGen의 Starfish TTS 엔진을 사용하여 텍스트로부터 음성 오디오를 생성합니다. 17개 언어의 인기 음성을 포함합니다.",
+    "display_name": "HeyGen 텍스트-투-스피치",
+    "inputs": {
+      "control_after_generate": {
+        "name": "control after generate"
+      },
+      "custom_voice_id": {
+        "name": "custom_voice_id",
+        "tooltip": "선택 사항인 HeyGen 음성 ID입니다. 설정 시 위에서 선택한 음성을 덮어씁니다. 해당 음성은 Starfish 엔진을 지원해야 합니다."
+      },
+      "seed": {
+        "name": "seed",
+        "tooltip": "HeyGen으로 전송되지 않습니다. 값을 변경하면 다시 실행됩니다."
+      },
+      "speed": {
+        "name": "speed",
+        "tooltip": "음성 속도 배수입니다."
+      },
+      "ssml": {
+        "name": "ssml",
+        "tooltip": "텍스트를 SSML 마크업으로 처리합니다(일시정지, 강조, 발음 제어 등)."
+      },
+      "text": {
+        "name": "text",
+        "tooltip": "합성할 텍스트(최대 5000자). 생성된 음성은 최소 1초 이상이어야 합니다."
+      },
+      "voice": {
+        "name": "voice",
+        "tooltip": "사용할 음성(헤이젠의 인기 Starfish 호환 음성 중에서 선별됨)."
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenVideoTranslateNode": {
+    "description": "음성이 포함된 비디오를 다른 언어로 번역합니다. 원래 화자의 목소리를 복제하고, 번역된 음성에 맞게 입 모양을 다시 애니메이션화합니다.",
+    "display_name": "HeyGen 비디오 번역",
+    "inputs": {
+      "control_after_generate": {
+        "name": "생성 후 제어"
+      },
+      "mode": {
+        "name": "모드",
+        "tooltip": "'speed'는 더 빠르며, 'precision'은 두 배의 비용으로 더 높은 품질의 입 모양 동기화를 제공합니다."
+      },
+      "output_language": {
+        "name": "출력 언어",
+        "tooltip": "번역된 비디오의 대상 언어입니다."
+      },
+      "seed": {
+        "name": "시드",
+        "tooltip": "HeyGen에 전송되지 않습니다. 값을 변경하면 다시 실행됩니다."
+      },
+      "speaker_count": {
+        "name": "화자 수",
+        "tooltip": "비디오에 등장하는 화자 수입니다. 0 = 자동 감지."
+      },
+      "translate_audio_only": {
+        "name": "오디오만 번역",
+        "tooltip": "오디오 트랙만 교체하고 원본 입 모양은 유지합니다 (입 모양 동기화 없음)."
+      },
+      "video": {
+        "name": "비디오",
+        "tooltip": "번역할 음성이 포함된 비디오입니다."
       }
     },
     "outputs": {
@@ -19644,6 +19876,28 @@
       },
       "prompt": {
         "name": "프롬프트"
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "TextEncodeJoyImageEdit": {
+    "display_name": "TextEncodeJoyImageEdit",
+    "inputs": {
+      "clip": {
+        "name": "clip"
+      },
+      "images": {
+        "name": "이미지"
+      },
+      "prompt": {
+        "name": "프롬프트"
+      },
+      "vae": {
+        "name": "vae"
       }
     },
     "outputs": {

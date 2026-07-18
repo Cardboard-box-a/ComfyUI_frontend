@@ -3,6 +3,9 @@
     "dockToTop": "Ancrer en haut",
     "feedback": "Retour",
     "feedbackTooltip": "Retour",
+    "freeTierPartner": "Les nodes partenaires nécessitent un forfait payant",
+    "freeTierRuns": "{available} / {MAX_AVAILABLE} exécutions restantes",
+    "freeTierRunsExhausted": "Aucune exécution restante",
     "share": "Partager",
     "shareTooltip": "Partager le workflow"
   },
@@ -785,6 +788,11 @@
       "gpuUsage": "Utilisation du GPU"
     },
     "faqs": "FAQ",
+    "insufficient": {
+      "memberCta": "Ok, compris",
+      "memberDescription": "Votre équipe a utilisé tous ses crédits. Les administrateurs de votre espace de travail doivent ajouter des crédits pour exécuter des workflows.",
+      "memberTitle": "Cet espace de travail n'a plus de crédits"
+    },
     "invoiceHistory": "Historique des factures",
     "lastUpdated": "Dernière mise à jour",
     "loadEventsError": "Échec du chargement de l'activité. Veuillez réessayer.",
@@ -1452,6 +1460,9 @@
     "noExportsInQueue": "Aucune exportation {filter} en file d’attente",
     "preparingExport": "Préparation de l’export...",
     "retryDownload": "Réessayer le téléchargement"
+  },
+  "feedback": {
+    "title": "Partager un retour"
   },
   "g": {
     "1x": "1x",
@@ -2783,7 +2794,6 @@
     "accept": "Oui, je veux aider !",
     "description": "Vous avez utilisé cette fonctionnalité. Pourriez-vous prendre un moment pour partager votre avis ?",
     "dontAskAgain": "Ne plus demander",
-    "loadError": "Échec du chargement du sondage. Veuillez réessayer plus tard.",
     "notNow": "Pas maintenant",
     "title": "Aidez-nous à nous améliorer"
   },
@@ -2798,6 +2808,7 @@
     "ElevenLabs": "ElevenLabs",
     "Gemini": "Gemini",
     "Grok": "Grok",
+    "HeyGen": "HeyGen",
     "HitPaw": "HitPaw",
     "Ideogram": "Ideogram",
     "Kling": "Kling",
@@ -2827,6 +2838,7 @@
     "ace": "ace",
     "adjustments": "ajustements",
     "advanced": "avancé",
+    "anima": "anima",
     "animate": "animer",
     "attention_experiments": "expériences_d'attention",
     "audio": "audio",
@@ -2870,6 +2882,7 @@
     "image": "image",
     "infinite talk": "conversation infinie",
     "instructpix2pix": "instructpix2pix",
+    "joyimage": "joyimage",
     "kandinsky": "kandinsky",
     "latent": "latent",
     "loaders": "chargeurs",
@@ -2882,6 +2895,7 @@
     "mochi": "mochi",
     "model": "modèle",
     "model specific": "spécifique au modèle",
+    "model_patches": "model_patches",
     "move": "déplacer",
     "multigpu": "multigpu",
     "noise": "bruit",
@@ -4250,6 +4264,9 @@
     "useApiKeyTip": "Astuce : Vous ne pouvez pas accéder à la connexion normale ? Utilisez l’option Clé API Comfy.",
     "userNotAuthenticated": "Utilisateur non authentifié"
   },
+  "typeform": {
+    "loadError": "Échec du chargement du formulaire. Veuillez réessayer plus tard."
+  },
   "userSelect": {
     "enterUsername": "Entrez un nom d'utilisateur",
     "existingUser": "Utilisateur existant",
@@ -4385,6 +4402,32 @@
     }
   },
   "workspacePanel": {
+    "billingStatus": {
+      "ending": {
+        "body": "Les membres conservent un accès complet jusqu'à cette date. Réactivez pour conserver vos crédits et places partagés.",
+        "reactivate": "Réactiver le forfait",
+        "title": "Votre forfait d'équipe se termine le {date}"
+      },
+      "outOfCredits": {
+        "addCredits": "Ajouter des crédits",
+        "body": "Votre équipe a utilisé tous ses crédits. Ajoutez des crédits pour continuer à générer ou attendez le rechargement des crédits le {date}.",
+        "bodyNoDate": "Votre équipe a utilisé tous ses crédits. Ajoutez des crédits pour continuer à générer.",
+        "dismiss": "Fermer",
+        "memberBody": "Votre équipe a utilisé tous ses crédits. Les administrateurs de votre espace de travail doivent ajouter des crédits pour continuer à générer.",
+        "title": "Plus de crédits"
+      },
+      "paused": {
+        "body": "L'abonnement de cet espace de travail est suspendu. Mettez à jour le paiement pour reprendre.",
+        "memberBody": "L'abonnement de cet espace de travail est suspendu. Les administrateurs de votre espace de travail doivent mettre à jour le mode de paiement.",
+        "title": "Abonnement suspendu"
+      },
+      "updatePayment": "Mettre à jour le paiement",
+      "warning": {
+        "body": "Votre dernier paiement n'a pas abouti. Votre abonnement sera suspendu le {date} à moins que le paiement ne soit mis à jour.",
+        "bodyNoDate": "Votre dernier paiement n'a pas abouti. Mettez à jour le paiement pour éviter une suspension.",
+        "title": "Paiement refusé"
+      }
+    },
     "changeRoleDialog": {
       "demoteConfirm": "Rétrograder en membre",
       "demoteMessage": "Il perdra l'accès administrateur.",

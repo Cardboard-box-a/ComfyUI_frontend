@@ -177,6 +177,32 @@
       }
     }
   },
+  "AnimaLLLiteApply": {
+    "display_name": "Anima LLLite Uygula",
+    "inputs": {
+      "end_percent": {
+        "name": "bitiş yüzdesi"
+      },
+      "image": {
+        "name": "görsel"
+      },
+      "mask": {
+        "name": "mask"
+      },
+      "model": {
+        "name": "model"
+      },
+      "model_patch": {
+        "name": "model_patch"
+      },
+      "start_percent": {
+        "name": "başlangıç yüzdesi"
+      },
+      "strength": {
+        "name": "güç"
+      }
+    }
+  },
   "AudioAdjustVolume": {
     "description": "Sesin seviyesini belirtilen desibel (dB) miktarında ayarla.",
     "display_name": "Ses Ses Seviyesi Ayarla",
@@ -5853,6 +5879,212 @@
       "watermark": {
         "name": "filigran",
         "tooltip": "Sonuca yapay zeka tarafından oluşturulmuş bir filigran eklenip eklenmeyeceği."
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenAvatarVideoNode": {
+    "description": "HeyGen avatarından konuşan sunucu videosu oluşturun. HeyGen'in en popüler herkese açık avatarlarını içerir; herhangi bir görünüm kimliği geçersiz kılma olarak girilebilir.",
+    "display_name": "HeyGen Avatar Video",
+    "inputs": {
+      "aspect_ratio": {
+        "name": "en-boy oranı",
+        "tooltip": "Çıktı en-boy oranı. 'auto', avatarın kaynak görüntüsünü takip eder."
+      },
+      "background_color": {
+        "name": "arka plan rengi",
+        "tooltip": "İsteğe bağlı düz arka plan rengi, hex kodu olarak (örn. '#00ff00'). Boş bırakılırsa avatarın kendi arka planı kullanılır."
+      },
+      "control_after_generate": {
+        "name": "oluşturduktan sonra kontrol et"
+      },
+      "custom_avatar_id": {
+        "name": "özel_avatar_id",
+        "tooltip": "İsteğe bağlı HeyGen avatar görünüm kimliği. Ayarlandığında, yukarıda seçilen avatarı geçersiz kılar. HeyGen'in 3000+ herkese açık görünümünden (veya özel avatarlarınızdan) herhangi biri kullanılabilir."
+      },
+      "engine": {
+        "name": "motor",
+        "tooltip": "Render motoru; her seçenek yalnızca onu destekleyen avatarları listeler. 'auto' tüm avatarları sunar ve en iyi motorunu seçer (Avatar IV tercih edilir). Avatar V en yüksek kalite, Avatar III en uygun fiyatlıdır."
+      },
+      "engine_avatar": {
+        "name": "avatar"
+      },
+      "resolution": {
+        "name": "çözünürlük",
+        "tooltip": "Çıktı video çözünürlüğü."
+      },
+      "seed": {
+        "name": "tohum",
+        "tooltip": "HeyGen'e gönderilmez; yeniden çalıştırmak için değiştirin."
+      },
+      "speech": {
+        "name": "konuşma",
+        "tooltip": "Avatarı bir metin senaryosu (HeyGen metinden sese) veya kendi sesinizle yönlendirin."
+      },
+      "speech_custom_voice_id": {
+        "name": "özel_ses_id"
+      },
+      "speech_text": {
+        "name": "metin"
+      },
+      "speech_voice": {
+        "name": "ses"
+      },
+      "speech_voice_speed": {
+        "name": "ses_hızı"
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenCreateAvatarNode": {
+    "description": "Bir kişinin fotoğrafından veya bir metin isteminden (oluşturulmuş karakter) kendi tekrar kullanılabilir HeyGen avatarınızı oluşturun. Ortaya çıkan avatar_id'yi HeyGen Avatar Video'nun custom_avatar_id'sine aktarın — ve avatarı gelecekteki iş akışlarında tekrar kullanmak için kimliği bir yere kaydedin.",
+    "display_name": "HeyGen Avatar Oluştur",
+    "inputs": {
+      "source": {
+        "name": "kaynak",
+        "tooltip": "Bir metin isteminden yeni bir karakter oluşturun veya avatarı bağlı bir kişinin fotoğrafından oluşturun."
+      },
+      "source_prompt": {
+        "name": "istem"
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "avatar_id",
+        "tooltip": "Avatar görünüm kimliği. HeyGen Avatar Video'nun custom_avatar_id'sine aktarın; avatarı daha sonra tekrar kullanmak için kaydedin."
+      },
+      "1": {
+        "name": "önizleme",
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenTalkingPhotoNode": {
+    "description": "Bir kişinin herhangi bir görüntüsünü dudak senkronizasyonlu konuşan bir videoya dönüştürün (HeyGen Avatar IV). Metin senaryosu veya kendi sesinizle yönlendirin.",
+    "display_name": "HeyGen Konuşan Fotoğraf",
+    "inputs": {
+      "aspect_ratio": {
+        "name": "en boy oranı",
+        "tooltip": "Çıktı en boy oranı. 'auto' giriş görüntüsünü takip eder."
+      },
+      "control_after_generate": {
+        "name": "oluşturduktan sonra kontrol"
+      },
+      "expressiveness": {
+        "name": "ifadeler",
+        "tooltip": "Animasyonlu yüz ve jestlerin ne kadar ifadeli olacağı."
+      },
+      "image": {
+        "name": "görüntü",
+        "tooltip": "Animasyon yapılacak kişinin görüntüsü. 2K'dan büyükse otomatik olarak küçültülür."
+      },
+      "resolution": {
+        "name": "çözünürlük",
+        "tooltip": "Çıktı video çözünürlüğü."
+      },
+      "seed": {
+        "name": "tohum",
+        "tooltip": "HeyGen'e gönderilmez; yeniden çalıştırmak için değiştirin."
+      },
+      "speech": {
+        "name": "konuşma",
+        "tooltip": "Avatarı bir metin senaryosu (HeyGen metinden konuşmaya) veya kendi sesinizle yönlendirin."
+      },
+      "speech_custom_voice_id": {
+        "name": "özel_ses_id"
+      },
+      "speech_text": {
+        "name": "metin"
+      },
+      "speech_voice": {
+        "name": "ses"
+      },
+      "speech_voice_speed": {
+        "name": "ses_hızı"
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenTextToSpeechNode": {
+    "description": "HeyGen'in Starfish TTS motorunu kullanarak metinden konuşma sesi oluşturun. 17 dilde HeyGen'in en popüler seslerini içerir.",
+    "display_name": "HeyGen Metinden Konuşmaya",
+    "inputs": {
+      "control_after_generate": {
+        "name": "oluşturduktan sonra kontrol"
+      },
+      "custom_voice_id": {
+        "name": "özel_ses_id",
+        "tooltip": "İsteğe bağlı HeyGen ses kimliği. Ayarlandığında, yukarıda seçilen sesi geçersiz kılar. Ses Starfish motorunu desteklemelidir."
+      },
+      "seed": {
+        "name": "tohum",
+        "tooltip": "HeyGen'e gönderilmez; yeniden çalıştırmak için değiştirin."
+      },
+      "speed": {
+        "name": "hız",
+        "tooltip": "Konuşma hızı çarpanı."
+      },
+      "ssml": {
+        "name": "ssml",
+        "tooltip": "Metni SSML biçimlendirmesi olarak işle (duraklamalar, vurgu ve telaffuz kontrolü için)."
+      },
+      "text": {
+        "name": "metin",
+        "tooltip": "Sentezlenecek metin (en fazla 5000 karakter). Oluşturulan konuşma en az 1 saniye uzunluğunda olmalıdır."
+      },
+      "voice": {
+        "name": "ses",
+        "tooltip": "Kullanılacak ses (HeyGen'in en popüler Starfish uyumlu seslerinden seçilmiştir)."
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenVideoTranslateNode": {
+    "description": "Konuşmalı bir videoyu başka bir dile çevirir. Orijinal konuşmacının sesini klonlar ve ağız hareketlerini çevrilen konuşmaya göre yeniden canlandırır.",
+    "display_name": "HeyGen Video Çeviri",
+    "inputs": {
+      "control_after_generate": {
+        "name": "control after generate"
+      },
+      "mode": {
+        "name": "mode",
+        "tooltip": "'speed' daha hızlıdır; 'precision' ise iki katı fiyatla daha yüksek kaliteli dudak senkronizasyonu sağlar."
+      },
+      "output_language": {
+        "name": "output_language",
+        "tooltip": "Çevrilen video için hedef dil."
+      },
+      "seed": {
+        "name": "seed",
+        "tooltip": "HeyGen'e gönderilmez; yeniden çalıştırmak için değiştirin."
+      },
+      "speaker_count": {
+        "name": "speaker_count",
+        "tooltip": "Videodaki konuşmacı sayısı. 0 = otomatik algıla."
+      },
+      "translate_audio_only": {
+        "name": "translate_audio_only",
+        "tooltip": "Sadece ses parçasını değiştirir, orijinal ağız hareketleri korunur (dudak senkronizasyonu yapılmaz)."
+      },
+      "video": {
+        "name": "video",
+        "tooltip": "Çevrilecek konuşmalı video."
       }
     },
     "outputs": {
@@ -19644,6 +19876,28 @@
       },
       "prompt": {
         "name": "istem"
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "TextEncodeJoyImageEdit": {
+    "display_name": "TextEncodeJoyImageEdit",
+    "inputs": {
+      "clip": {
+        "name": "clip"
+      },
+      "images": {
+        "name": "images"
+      },
+      "prompt": {
+        "name": "prompt"
+      },
+      "vae": {
+        "name": "vae"
       }
     },
     "outputs": {

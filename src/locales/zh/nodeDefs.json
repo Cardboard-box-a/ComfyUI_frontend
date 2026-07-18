@@ -177,6 +177,32 @@
       }
     }
   },
+  "AnimaLLLiteApply": {
+    "display_name": "应用 Anima LLLite",
+    "inputs": {
+      "end_percent": {
+        "name": "结束百分比"
+      },
+      "image": {
+        "name": "图像"
+      },
+      "mask": {
+        "name": "掩码"
+      },
+      "model": {
+        "name": "模型"
+      },
+      "model_patch": {
+        "name": "模型补丁"
+      },
+      "start_percent": {
+        "name": "起始百分比"
+      },
+      "strength": {
+        "name": "强度"
+      }
+    }
+  },
   "AudioAdjustVolume": {
     "description": "按指定的分贝（dB）调整音频音量。",
     "display_name": "音频调整音量",
@@ -5853,6 +5879,212 @@
       "watermark": {
         "name": "watermark",
         "tooltip": "是否为结果添加 AI 生成的水印。"
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenAvatarVideoNode": {
+    "description": "通过 HeyGen 虚拟人生成讲解者视频。包含 HeyGen 最受欢迎的公开虚拟人；可通过 look ID 覆盖选择任意形象。",
+    "display_name": "HeyGen 虚拟人视频",
+    "inputs": {
+      "aspect_ratio": {
+        "name": "宽高比",
+        "tooltip": "输出宽高比。'auto' 跟随虚拟人源视频比例。"
+      },
+      "background_color": {
+        "name": "背景色",
+        "tooltip": "可选纯色背景，使用十六进制代码（如 '#00ff00'）。留空则使用虚拟人自带背景。"
+      },
+      "control_after_generate": {
+        "name": "生成后控制"
+      },
+      "custom_avatar_id": {
+        "name": "自定义虚拟人 ID",
+        "tooltip": "可选的 HeyGen 虚拟人 look ID。设置后将覆盖上方选择的虚拟人。可使用 HeyGen 3000+ 公开形象（或你的私人虚拟人）。"
+      },
+      "engine": {
+        "name": "引擎",
+        "tooltip": "渲染引擎；每个选项仅显示支持该引擎的虚拟人。'auto' 提供所有虚拟人并自动选择最佳引擎（优先 Avatar IV）。Avatar V 画质最高，Avatar III 价格最优。"
+      },
+      "engine_avatar": {
+        "name": "虚拟人"
+      },
+      "resolution": {
+        "name": "分辨率",
+        "tooltip": "输出视频分辨率。"
+      },
+      "seed": {
+        "name": "种子",
+        "tooltip": "不会发送给 HeyGen；更改此项可强制重新生成。"
+      },
+      "speech": {
+        "name": "语音",
+        "tooltip": "通过文本脚本（HeyGen 文本转语音）或自定义音频驱动虚拟人。"
+      },
+      "speech_custom_voice_id": {
+        "name": "自定义语音 ID"
+      },
+      "speech_text": {
+        "name": "文本"
+      },
+      "speech_voice": {
+        "name": "语音类型"
+      },
+      "speech_voice_speed": {
+        "name": "语速"
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenCreateAvatarNode": {
+    "description": "通过人物照片或文本提示（生成角色）创建你自己的可复用 HeyGen 虚拟人。将生成的 avatar_id 输入到 HeyGen 虚拟人视频的 custom_avatar_id，并保存该 ID 以便在后续工作流中复用。",
+    "display_name": "HeyGen 创建虚拟人",
+    "inputs": {
+      "source": {
+        "name": "来源",
+        "tooltip": "通过文本提示生成新角色，或通过连接的人像照片创建虚拟人。"
+      },
+      "source_prompt": {
+        "name": "提示词"
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "虚拟人 ID",
+        "tooltip": "虚拟人 look ID。传递给 HeyGen 虚拟人视频的 custom_avatar_id；保存以便后续复用。"
+      },
+      "1": {
+        "name": "预览",
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenTalkingPhotoNode": {
+    "description": "将任意人物图像动画化为口型同步的说话视频（HeyGen Avatar IV）。可通过文本脚本或自定义音频驱动。",
+    "display_name": "HeyGen 说话照片",
+    "inputs": {
+      "aspect_ratio": {
+        "name": "aspect_ratio",
+        "tooltip": "输出宽高比。“auto”将跟随输入图像。"
+      },
+      "control_after_generate": {
+        "name": "生成后控制"
+      },
+      "expressiveness": {
+        "name": "expressiveness",
+        "tooltip": "动画面部表情和手势的表现力。"
+      },
+      "image": {
+        "name": "image",
+        "tooltip": "要动画化的人物图像。如果大于2K会自动缩小。"
+      },
+      "resolution": {
+        "name": "resolution",
+        "tooltip": "输出视频分辨率。"
+      },
+      "seed": {
+        "name": "seed",
+        "tooltip": "不会发送到 HeyGen；更改此项可强制重新生成。"
+      },
+      "speech": {
+        "name": "speech",
+        "tooltip": "通过文本脚本（HeyGen 文本转语音）或自定义音频驱动头像。"
+      },
+      "speech_custom_voice_id": {
+        "name": "custom_voice_id"
+      },
+      "speech_text": {
+        "name": "text"
+      },
+      "speech_voice": {
+        "name": "voice"
+      },
+      "speech_voice_speed": {
+        "name": "voice_speed"
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenTextToSpeechNode": {
+    "description": "使用 HeyGen 的 Starfish TTS 引擎将文本生成语音音频。包含 HeyGen 最受欢迎的17种语言语音。",
+    "display_name": "HeyGen 文本转语音",
+    "inputs": {
+      "control_after_generate": {
+        "name": "生成后控制"
+      },
+      "custom_voice_id": {
+        "name": "custom_voice_id",
+        "tooltip": "可选的 HeyGen 语音ID。设置后将覆盖上方选择的语音。该语音必须支持 Starfish 引擎。"
+      },
+      "seed": {
+        "name": "seed",
+        "tooltip": "不会发送到 HeyGen；更改此项可强制重新生成。"
+      },
+      "speed": {
+        "name": "speed",
+        "tooltip": "语音速度倍数。"
+      },
+      "ssml": {
+        "name": "ssml",
+        "tooltip": "将文本视为 SSML 标记（用于停顿、强调和发音控制）。"
+      },
+      "text": {
+        "name": "text",
+        "tooltip": "要合成的文本（最多5000字符）。生成的语音时长必须至少为1秒。"
+      },
+      "voice": {
+        "name": "voice",
+        "tooltip": "要使用的语音（精选自 HeyGen 最受欢迎的 Starfish 兼容语音）。"
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenVideoTranslateNode": {
+    "description": "将带有语音的视频翻译为另一种语言。克隆原说话人的声音，并重新动画化嘴型以匹配翻译后的语音。",
+    "display_name": "HeyGen 视频翻译",
+    "inputs": {
+      "control_after_generate": {
+        "name": "生成后控制"
+      },
+      "mode": {
+        "name": "模式",
+        "tooltip": "“speed”速度更快；“precision”可生成更高质量的唇形同步，但价格翻倍。"
+      },
+      "output_language": {
+        "name": "目标语言",
+        "tooltip": "翻译后视频的目标语言。"
+      },
+      "seed": {
+        "name": "种子",
+        "tooltip": "不会发送给 HeyGen；更改此项可强制重新运行。"
+      },
+      "speaker_count": {
+        "name": "说话人数",
+        "tooltip": "视频中的说话人数。0 = 自动检测。"
+      },
+      "translate_audio_only": {
+        "name": "仅翻译音频",
+        "tooltip": "只替换音轨，保留原始嘴型（无唇形同步）。"
+      },
+      "video": {
+        "name": "视频",
+        "tooltip": "需要翻译语音的视频。"
       }
     },
     "outputs": {
@@ -19644,6 +19876,28 @@
       },
       "prompt": {
         "name": "提示"
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "TextEncodeJoyImageEdit": {
+    "display_name": "TextEncodeJoy 图像编辑",
+    "inputs": {
+      "clip": {
+        "name": "clip"
+      },
+      "images": {
+        "name": "图像"
+      },
+      "prompt": {
+        "name": "提示词"
+      },
+      "vae": {
+        "name": "vae"
       }
     },
     "outputs": {

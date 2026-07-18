@@ -3,6 +3,9 @@
     "dockToTop": "上部にドッキング",
     "feedback": "フィードバック",
     "feedbackTooltip": "フィードバック",
+    "freeTierPartner": "パートナーノードは有料プランが必要です",
+    "freeTierRuns": "{available} / {MAX_AVAILABLE} 回残り",
+    "freeTierRunsExhausted": "残り回数なし",
     "share": "共有",
     "shareTooltip": "ワークフローを共有"
   },
@@ -785,6 +788,11 @@
       "gpuUsage": "GPU利用"
     },
     "faqs": "よくある質問",
+    "insufficient": {
+      "memberCta": "了解しました",
+      "memberDescription": "チームのクレジットがすべて使用されました。ワークスペース管理者がワークフローを実行するためにクレジットを追加する必要があります。",
+      "memberTitle": "このワークスペースのクレジットが不足しています"
+    },
     "invoiceHistory": "請求履歴",
     "lastUpdated": "最終更新",
     "loadEventsError": "アクティビティの読み込みに失敗しました。もう一度お試しください。",
@@ -1452,6 +1460,9 @@
     "noExportsInQueue": "キューに{filter}エクスポートはありません",
     "preparingExport": "エクスポートを準備中...",
     "retryDownload": "ダウンロードを再試行"
+  },
+  "feedback": {
+    "title": "フィードバックを送信"
   },
   "g": {
     "1x": "1倍速",
@@ -2783,7 +2794,6 @@
     "accept": "はい、協力します！",
     "description": "この機能をご利用いただきありがとうございます。ご意見をお聞かせいただけますか？",
     "dontAskAgain": "今後表示しない",
-    "loadError": "アンケートの読み込みに失敗しました。後でもう一度お試しください。",
     "notNow": "今はしない",
     "title": "改善にご協力ください"
   },
@@ -2798,6 +2808,7 @@
     "ElevenLabs": "ElevenLabs",
     "Gemini": "Gemini",
     "Grok": "Grok",
+    "HeyGen": "HeyGen",
     "HitPaw": "HitPaw",
     "Ideogram": "Ideogram",
     "Kling": "Kling",
@@ -2827,6 +2838,7 @@
     "ace": "ace",
     "adjustments": "調整",
     "advanced": "高度な機能",
+    "anima": "anima",
     "animate": "アニメート",
     "attention_experiments": "アテンション実験",
     "audio": "オーディオ",
@@ -2870,6 +2882,7 @@
     "image": "画像",
     "infinite talk": "インフィニットトーク",
     "instructpix2pix": "インストラクションピクス2ピクス",
+    "joyimage": "joyimage",
     "kandinsky": "kandinsky",
     "latent": "潜在",
     "loaders": "ローダー",
@@ -2882,6 +2895,7 @@
     "mochi": "mochi",
     "model": "モデル",
     "model specific": "モデル固有",
+    "model_patches": "model_patches",
     "move": "move",
     "multigpu": "マルチGPU",
     "noise": "ノイズ",
@@ -4250,6 +4264,9 @@
     "useApiKeyTip": "ヒント：通常のログインにアクセスできませんか？Comfy APIキーオプションを使用してください。",
     "userNotAuthenticated": "ユーザーが認証されていません"
   },
+  "typeform": {
+    "loadError": "フォームの読み込みに失敗しました。後でもう一度お試しください。"
+  },
   "userSelect": {
     "enterUsername": "ユーザー名を入力してください",
     "existingUser": "既存のユーザー",
@@ -4385,6 +4402,32 @@
     }
   },
   "workspacePanel": {
+    "billingStatus": {
+      "ending": {
+        "body": "それまではメンバーはすべての機能にアクセスできます。共有クレジットとシートを維持するには再アクティベートしてください。",
+        "reactivate": "プランを再アクティベート",
+        "title": "チームプランは{date}に終了します"
+      },
+      "outOfCredits": {
+        "addCredits": "クレジットを追加",
+        "body": "チームのクレジットがすべて使用されました。生成を続けるにはクレジットを追加するか、{date}にクレジットが補充されるまでお待ちください。",
+        "bodyNoDate": "チームのクレジットがすべて使用されました。生成を続けるにはクレジットを追加してください。",
+        "dismiss": "閉じる",
+        "memberBody": "チームのクレジットがすべて使用されました。生成を続けるにはワークスペース管理者がクレジットを追加する必要があります。",
+        "title": "クレジットが不足しています"
+      },
+      "paused": {
+        "body": "このワークスペースのサブスクリプションは一時停止中です。再開するには支払い方法を更新してください。",
+        "memberBody": "このワークスペースのサブスクリプションは一時停止中です。ワークスペース管理者が支払い方法を更新する必要があります。",
+        "title": "サブスクリプションが一時停止されています"
+      },
+      "updatePayment": "支払い方法を更新",
+      "warning": {
+        "body": "前回のお支払いが処理されませんでした。{date}までに支払い方法を更新しない場合、サブスクリプションが一時停止されます。",
+        "bodyNoDate": "前回のお支払いが処理されませんでした。サブスクリプションの一時停止を避けるために支払い方法を更新してください。",
+        "title": "支払いが拒否されました"
+      }
+    },
     "changeRoleDialog": {
       "demoteConfirm": "メンバーに降格",
       "demoteMessage": "管理者権限が失われます。",

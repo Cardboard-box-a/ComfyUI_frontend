@@ -177,6 +177,32 @@
       }
     }
   },
+  "AnimaLLLiteApply": {
+    "display_name": "تطبيق Anima LLLite",
+    "inputs": {
+      "end_percent": {
+        "name": "نسبة النهاية"
+      },
+      "image": {
+        "name": "الصورة"
+      },
+      "mask": {
+        "name": "القناع"
+      },
+      "model": {
+        "name": "النموذج"
+      },
+      "model_patch": {
+        "name": "تصحيح النموذج"
+      },
+      "start_percent": {
+        "name": "نسبة البداية"
+      },
+      "strength": {
+        "name": "القوة"
+      }
+    }
+  },
   "AudioAdjustVolume": {
     "description": "ضبط مستوى صوت الملف الصوتي بمقدار محدد بوحدة ديسيبل (dB).",
     "display_name": "ضبط مستوى الصوت",
@@ -5853,6 +5879,212 @@
       "watermark": {
         "name": "علامة مائية",
         "tooltip": "هل ترغب في إضافة علامة مائية مولدة بالذكاء الاصطناعي إلى النتيجة؟"
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenAvatarVideoNode": {
+    "description": "إنشاء فيديو مقدم يتحدث باستخدام HeyGen avatar. يتضمن أكثر الشخصيات العامة شهرة من HeyGen؛ يمكن تزويد أي معرف مظهر كإعداد مخصص.",
+    "display_name": "فيديو HeyGen Avatar",
+    "inputs": {
+      "aspect_ratio": {
+        "name": "نسبة العرض إلى الارتفاع",
+        "tooltip": "نسبة العرض إلى الارتفاع للفيديو الناتج. 'تلقائي' يتبع مصدر الفيديو للشخصية."
+      },
+      "background_color": {
+        "name": "لون الخلفية",
+        "tooltip": "لون خلفية صلبة اختياري كرمز hex (مثال: '#00ff00'). اتركه فارغاً لاستخدام خلفية الشخصية نفسها."
+      },
+      "control_after_generate": {
+        "name": "التحكم بعد الإنشاء"
+      },
+      "custom_avatar_id": {
+        "name": "معرف الشخصية المخصص",
+        "tooltip": "معرف مظهر HeyGen اختياري. عند تعيينه، يتجاوز الشخصية المحددة أعلاه. يمكن استخدام أي من أكثر من ٣٠٠٠ مظهر عام من HeyGen (أو شخصياتك الخاصة)."
+      },
+      "engine": {
+        "name": "المحرك",
+        "tooltip": "محرك التصيير؛ كل خيار يعرض فقط الشخصيات التي تدعمه. 'تلقائي' يعرض جميع الشخصيات ويختار أفضل محرك لها (يفضل Avatar IV). Avatar V هو الأعلى دقة، وAvatar III هو الأكثر توفيراً."
+      },
+      "engine_avatar": {
+        "name": "الشخصية"
+      },
+      "resolution": {
+        "name": "الدقة",
+        "tooltip": "دقة الفيديو الناتج."
+      },
+      "seed": {
+        "name": "البذرة",
+        "tooltip": "لن يتم إرسالها إلى HeyGen؛ غيّرها لإعادة التشغيل."
+      },
+      "speech": {
+        "name": "الكلام",
+        "tooltip": "تحريك الشخصية بنص (تحويل النص إلى كلام من HeyGen) أو ملف صوتي خاص بك."
+      },
+      "speech_custom_voice_id": {
+        "name": "معرف الصوت المخصص"
+      },
+      "speech_text": {
+        "name": "النص"
+      },
+      "speech_voice": {
+        "name": "الصوت"
+      },
+      "speech_voice_speed": {
+        "name": "سرعة الصوت"
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenCreateAvatarNode": {
+    "description": "أنشئ شخصية HeyGen قابلة لإعادة الاستخدام من صورة شخص أو من نص (شخصية مولدة). أدخل avatar_id الناتج في custom_avatar_id لفيديو HeyGen Avatar — واحتفظ بالمعرف لإعادة استخدام الشخصية في سير العمل مستقبلاً.",
+    "display_name": "إنشاء HeyGen Avatar",
+    "inputs": {
+      "source": {
+        "name": "المصدر",
+        "tooltip": "أنشئ شخصية جديدة من نص، أو أنشئ الشخصية من صورة متصلة لشخص."
+      },
+      "source_prompt": {
+        "name": "المطالبة"
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "معرف الشخصية",
+        "tooltip": "معرف مظهر الشخصية. مرره إلى custom_avatar_id لفيديو HeyGen Avatar؛ واحتفظ به لإعادة استخدام الشخصية لاحقاً."
+      },
+      "1": {
+        "name": "المعاينة",
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenTalkingPhotoNode": {
+    "description": "حوّل أي صورة لشخص إلى فيديو متكلم متزامن مع حركة الشفاه (HeyGen Avatar IV). يمكنك تحريكها بنص مكتوب أو صوتك الخاص.",
+    "display_name": "HeyGen صورة متحركة ناطقة",
+    "inputs": {
+      "aspect_ratio": {
+        "name": "نسبة العرض إلى الارتفاع",
+        "tooltip": "نسبة العرض إلى الارتفاع للفيديو الناتج. 'تلقائي' يتبع صورة الإدخال."
+      },
+      "control_after_generate": {
+        "name": "التحكم بعد التوليد"
+      },
+      "expressiveness": {
+        "name": "التعبيرية",
+        "tooltip": "مدى تعبير الوجه والإيماءات المتحركة."
+      },
+      "image": {
+        "name": "صورة",
+        "tooltip": "صورة الشخص المراد تحريكها. سيتم تصغيرها تلقائيًا إذا كانت أكبر من 2K."
+      },
+      "resolution": {
+        "name": "الدقة",
+        "tooltip": "دقة الفيديو الناتج."
+      },
+      "seed": {
+        "name": "البذرة",
+        "tooltip": "لن يتم إرسالها إلى HeyGen؛ غيّرها لإعادة التشغيل."
+      },
+      "speech": {
+        "name": "الصوت",
+        "tooltip": "حرّك الصورة بنص مكتوب (تحويل النص إلى كلام من HeyGen) أو صوتك الخاص."
+      },
+      "speech_custom_voice_id": {
+        "name": "معرّف الصوت المخصص"
+      },
+      "speech_text": {
+        "name": "النص"
+      },
+      "speech_voice": {
+        "name": "الصوت"
+      },
+      "speech_voice_speed": {
+        "name": "سرعة الصوت"
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenTextToSpeechNode": {
+    "description": "أنشئ صوتًا من نص باستخدام محرك HeyGen Starfish TTS. يشمل أشهر أصوات HeyGen عبر ١٧ لغة.",
+    "display_name": "HeyGen تحويل النص إلى كلام",
+    "inputs": {
+      "control_after_generate": {
+        "name": "التحكم بعد التوليد"
+      },
+      "custom_voice_id": {
+        "name": "معرّف الصوت المخصص",
+        "tooltip": "معرّف صوت HeyGen اختياري. عند تعيينه، يتجاوز الصوت المحدد أعلاه. يجب أن يدعم الصوت محرك Starfish."
+      },
+      "seed": {
+        "name": "البذرة",
+        "tooltip": "لن يتم إرسالها إلى HeyGen؛ غيّرها لإعادة التشغيل."
+      },
+      "speed": {
+        "name": "السرعة",
+        "tooltip": "معامل سرعة الكلام."
+      },
+      "ssml": {
+        "name": "SSML",
+        "tooltip": "تعامل مع النص كعلامات SSML (للوقفات، والتأكيد، والتحكم في النطق)."
+      },
+      "text": {
+        "name": "النص",
+        "tooltip": "النص المراد تحويله إلى صوت (حتى ٥٠٠٠ حرف). يجب أن يكون الصوت الناتج أطول من ثانية واحدة."
+      },
+      "voice": {
+        "name": "الصوت",
+        "tooltip": "الصوت المستخدم (مختار من أشهر الأصوات المتوافقة مع Starfish من HeyGen)."
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenVideoTranslateNode": {
+    "description": "ترجمة فيديو منطوق إلى لغة أخرى. يتم استنساخ صوت المتحدث الأصلي وإعادة تحريك الفم ليتوافق مع الكلام المترجم.",
+    "display_name": "HeyGen ترجمة الفيديو",
+    "inputs": {
+      "control_after_generate": {
+        "name": "التحكم بعد التوليد"
+      },
+      "mode": {
+        "name": "الوضع",
+        "tooltip": "'السرعة' أسرع؛ 'الدقة' تنتج مزامنة شفاه بجودة أعلى ولكن بتكلفة مضاعفة."
+      },
+      "output_language": {
+        "name": "اللغة المستهدفة",
+        "tooltip": "اللغة الهدف للفيديو المترجم."
+      },
+      "seed": {
+        "name": "البذرة",
+        "tooltip": "لن يتم إرسالها إلى HeyGen؛ غيّرها لإعادة التشغيل القسري."
+      },
+      "speaker_count": {
+        "name": "عدد المتحدثين",
+        "tooltip": "عدد المتحدثين في الفيديو. ۰ = اكتشاف تلقائي."
+      },
+      "translate_audio_only": {
+        "name": "ترجمة الصوت فقط",
+        "tooltip": "استبدال المسار الصوتي فقط مع الحفاظ على حركات الفم الأصلية (بدون مزامنة شفاه)."
+      },
+      "video": {
+        "name": "فيديو",
+        "tooltip": "فيديو يحتوي على كلام لترجمته."
       }
     },
     "outputs": {
@@ -19644,6 +19876,28 @@
       },
       "prompt": {
         "name": "الموجه"
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "TextEncodeJoyImageEdit": {
+    "display_name": "TextEncodeJoyImageEdit",
+    "inputs": {
+      "clip": {
+        "name": "clip"
+      },
+      "images": {
+        "name": "صور"
+      },
+      "prompt": {
+        "name": "المطالبة"
+      },
+      "vae": {
+        "name": "vae"
       }
     },
     "outputs": {

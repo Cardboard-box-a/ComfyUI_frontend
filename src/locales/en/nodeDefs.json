@@ -118,6 +118,32 @@
       }
     }
   },
+  "AnimaLLLiteApply": {
+    "display_name": "Apply Anima LLLite",
+    "inputs": {
+      "model": {
+        "name": "model"
+      },
+      "model_patch": {
+        "name": "model_patch"
+      },
+      "image": {
+        "name": "image"
+      },
+      "strength": {
+        "name": "strength"
+      },
+      "start_percent": {
+        "name": "start_percent"
+      },
+      "end_percent": {
+        "name": "end_percent"
+      },
+      "mask": {
+        "name": "mask"
+      }
+    }
+  },
   "APG": {
     "display_name": "Adaptive Projected Guidance",
     "inputs": {
@@ -1681,7 +1707,7 @@
   },
   "CLIPLoader": {
     "display_name": "Load CLIP",
-    "description": "Recipes:\nsd: clip-l\nstable cascade: clip-g\nsd3: t5 xxl / clip-g / clip-l\nstable audio: t5 base\nmochi: t5 xxl\ncogvideox: t5 xxl (226-token padding)\ncosmos: old t5 xxl\nlumina2: gemma 2 2B\nwan: umt5 xxl\nhidream: llama-3.1 (Recommend) or t5\nomnigen2: qwen vl 2.5 3B\nlens: gpt-oss-20b\npixeldit: gemma 2 2B elm",
+    "description": "Recipes:\nsd: clip-l\nstable cascade: clip-g\nsd3: t5 xxl / clip-g / clip-l\nstable audio: t5 base\nmochi: t5 xxl\ncogvideox: t5 xxl (226-token padding)\ncosmos: old t5 xxl\nlumina2: gemma 2 2B\nwan: umt5 xxl\nhidream: llama-3.1 (Recommend) or t5\nomnigen2: qwen vl 2.5 3B\njoyimage: qwen3-vl 8B\nlens: gpt-oss-20b\npixeldit: gemma 2 2B elm",
     "inputs": {
       "clip_name": {
         "name": "clip_name"
@@ -5853,6 +5879,212 @@
       },
       "model_resolution": {
         "name": "resolution"
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenAvatarVideoNode": {
+    "display_name": "HeyGen Avatar Video",
+    "description": "Generate a talking-presenter video from a HeyGen avatar. Includes HeyGen's most popular public avatars; any look ID can be supplied as an override.",
+    "inputs": {
+      "engine": {
+        "name": "engine",
+        "tooltip": "Rendering engine; each choice lists only the avatars that support it. 'auto' offers every avatar and picks its best engine (Avatar IV preferred). Avatar V is highest fidelity, Avatar III is the most affordable."
+      },
+      "speech": {
+        "name": "speech",
+        "tooltip": "Drive the avatar with a text script (HeyGen text-to-speech) or your own audio."
+      },
+      "custom_avatar_id": {
+        "name": "custom_avatar_id",
+        "tooltip": "Optional HeyGen avatar look ID. When set, overrides the avatar selected above. Any of HeyGen's 3000+ public looks (or your private avatars) can be used."
+      },
+      "resolution": {
+        "name": "resolution",
+        "tooltip": "Output video resolution."
+      },
+      "aspect_ratio": {
+        "name": "aspect_ratio",
+        "tooltip": "Output aspect ratio. 'auto' follows the avatar's source footage."
+      },
+      "background_color": {
+        "name": "background_color",
+        "tooltip": "Optional solid background color as a hex code (e.g. '#00ff00'). Leave empty for the avatar's own background."
+      },
+      "seed": {
+        "name": "seed",
+        "tooltip": "Not sent to HeyGen; change it to force a re-run."
+      },
+      "control_after_generate": {
+        "name": "control after generate"
+      },
+      "engine_avatar": {
+        "name": "avatar"
+      },
+      "speech_custom_voice_id": {
+        "name": "custom_voice_id"
+      },
+      "speech_text": {
+        "name": "text"
+      },
+      "speech_voice": {
+        "name": "voice"
+      },
+      "speech_voice_speed": {
+        "name": "voice_speed"
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenCreateAvatarNode": {
+    "display_name": "HeyGen Create Avatar",
+    "description": "Create your own reusable HeyGen avatar from a photo of a person or from a text prompt (a generated character). Feed the resulting avatar_id into HeyGen Avatar Video's custom_avatar_id — and save the ID somewhere to reuse the avatar in future workflows.",
+    "inputs": {
+      "source": {
+        "name": "source",
+        "tooltip": "Generate a new character from a text prompt, or create the avatar from a connected photo of a person."
+      },
+      "source_prompt": {
+        "name": "prompt"
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "avatar_id",
+        "tooltip": "Avatar look ID. Pass it to HeyGen Avatar Video's custom_avatar_id; save it to reuse the avatar later."
+      },
+      "1": {
+        "name": "preview",
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenTalkingPhotoNode": {
+    "display_name": "HeyGen Talking Photo",
+    "description": "Animate any image of a person into a lip-synced talking video (HeyGen Avatar IV). Drive it with a text script or your own audio.",
+    "inputs": {
+      "image": {
+        "name": "image",
+        "tooltip": "Image of a person to animate. Downscaled automatically if larger than 2K."
+      },
+      "speech": {
+        "name": "speech",
+        "tooltip": "Drive the avatar with a text script (HeyGen text-to-speech) or your own audio."
+      },
+      "resolution": {
+        "name": "resolution",
+        "tooltip": "Output video resolution."
+      },
+      "aspect_ratio": {
+        "name": "aspect_ratio",
+        "tooltip": "Output aspect ratio. 'auto' follows the input image."
+      },
+      "expressiveness": {
+        "name": "expressiveness",
+        "tooltip": "How expressive the animated face and gestures are."
+      },
+      "seed": {
+        "name": "seed",
+        "tooltip": "Not sent to HeyGen; change it to force a re-run."
+      },
+      "control_after_generate": {
+        "name": "control after generate"
+      },
+      "speech_custom_voice_id": {
+        "name": "custom_voice_id"
+      },
+      "speech_text": {
+        "name": "text"
+      },
+      "speech_voice": {
+        "name": "voice"
+      },
+      "speech_voice_speed": {
+        "name": "voice_speed"
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenTextToSpeechNode": {
+    "display_name": "HeyGen Text to Speech",
+    "description": "Generate speech audio from text using HeyGen's Starfish TTS engine. Includes HeyGen's most popular voices across 17 languages.",
+    "inputs": {
+      "text": {
+        "name": "text",
+        "tooltip": "Text to synthesize (up to 5000 characters). The generated speech must be at least 1 second long."
+      },
+      "voice": {
+        "name": "voice",
+        "tooltip": "Voice to use (curated from HeyGen's most popular Starfish-compatible voices)."
+      },
+      "custom_voice_id": {
+        "name": "custom_voice_id",
+        "tooltip": "Optional HeyGen voice ID. When set, overrides the voice selected above. The voice must support the Starfish engine."
+      },
+      "speed": {
+        "name": "speed",
+        "tooltip": "Speech speed multiplier."
+      },
+      "ssml": {
+        "name": "ssml",
+        "tooltip": "Treat the text as SSML markup (for pauses, emphasis, and pronunciation control)."
+      },
+      "seed": {
+        "name": "seed",
+        "tooltip": "Not sent to HeyGen; change it to force a re-run."
+      },
+      "control_after_generate": {
+        "name": "control after generate"
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenVideoTranslateNode": {
+    "display_name": "HeyGen Video Translate",
+    "description": "Translate a spoken video into another language. Clones the original speaker's voice and re-animates the mouth to match the translated speech.",
+    "inputs": {
+      "video": {
+        "name": "video",
+        "tooltip": "Video with speech to translate."
+      },
+      "output_language": {
+        "name": "output_language",
+        "tooltip": "Target language for the translated video."
+      },
+      "mode": {
+        "name": "mode",
+        "tooltip": "'speed' is faster; 'precision' produces higher-quality lip sync at twice the price."
+      },
+      "translate_audio_only": {
+        "name": "translate_audio_only",
+        "tooltip": "Only swap the audio track, keeping the original mouth movements (no lip sync)."
+      },
+      "speaker_count": {
+        "name": "speaker_count",
+        "tooltip": "Number of speakers in the video. 0 = detect automatically."
+      },
+      "seed": {
+        "name": "seed",
+        "tooltip": "Not sent to HeyGen; change it to force a re-run."
+      },
+      "control_after_generate": {
+        "name": "control after generate"
       }
     },
     "outputs": {
@@ -19644,6 +19876,28 @@
       "image_interleave": {
         "name": "image_interleave",
         "tooltip": "How much the image influences things vs the text prompt. Higher number means more influence from the text prompt."
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "TextEncodeJoyImageEdit": {
+    "display_name": "TextEncodeJoyImageEdit",
+    "inputs": {
+      "clip": {
+        "name": "clip"
+      },
+      "prompt": {
+        "name": "prompt"
+      },
+      "vae": {
+        "name": "vae"
+      },
+      "images": {
+        "name": "images"
       }
     },
     "outputs": {

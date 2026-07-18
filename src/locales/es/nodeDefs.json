@@ -177,6 +177,32 @@
       }
     }
   },
+  "AnimaLLLiteApply": {
+    "display_name": "Aplicar Anima LLLite",
+    "inputs": {
+      "end_percent": {
+        "name": "porcentaje final"
+      },
+      "image": {
+        "name": "imagen"
+      },
+      "mask": {
+        "name": "máscara"
+      },
+      "model": {
+        "name": "modelo"
+      },
+      "model_patch": {
+        "name": "parche de modelo"
+      },
+      "start_percent": {
+        "name": "porcentaje de inicio"
+      },
+      "strength": {
+        "name": "intensidad"
+      }
+    }
+  },
   "AudioAdjustVolume": {
     "description": "Ajusta el volumen del audio en una cantidad especificada en decibelios (dB).",
     "display_name": "Ajustar Volumen de Audio",
@@ -5853,6 +5879,212 @@
       "watermark": {
         "name": "marca de agua",
         "tooltip": "Indica si se añade una marca de agua generada por IA al resultado."
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenAvatarVideoNode": {
+    "description": "Genera un video de presentador parlante a partir de un avatar de HeyGen. Incluye los avatares públicos más populares de HeyGen; se puede proporcionar cualquier ID de look como reemplazo.",
+    "display_name": "Video de Avatar HeyGen",
+    "inputs": {
+      "aspect_ratio": {
+        "name": "relación de aspecto",
+        "tooltip": "Relación de aspecto de salida. 'auto' sigue el metraje fuente del avatar."
+      },
+      "background_color": {
+        "name": "color de fondo",
+        "tooltip": "Color de fondo sólido opcional como código hex (ej. '#00ff00'). Déjalo vacío para usar el fondo propio del avatar."
+      },
+      "control_after_generate": {
+        "name": "controlar después de generar"
+      },
+      "custom_avatar_id": {
+        "name": "custom_avatar_id",
+        "tooltip": "ID de look de avatar de HeyGen opcional. Si se establece, reemplaza el avatar seleccionado arriba. Se puede usar cualquiera de los más de 3000 looks públicos de HeyGen (o tus avatares privados)."
+      },
+      "engine": {
+        "name": "motor",
+        "tooltip": "Motor de renderizado; cada opción muestra solo los avatares que lo soportan. 'auto' ofrece todos los avatares y elige su mejor motor (se prefiere Avatar IV). Avatar V es la mayor fidelidad, Avatar III es el más asequible."
+      },
+      "engine_avatar": {
+        "name": "avatar"
+      },
+      "resolution": {
+        "name": "resolución",
+        "tooltip": "Resolución del video de salida."
+      },
+      "seed": {
+        "name": "semilla",
+        "tooltip": "No se envía a HeyGen; cámbiala para forzar una nueva ejecución."
+      },
+      "speech": {
+        "name": "voz",
+        "tooltip": "Haz que el avatar hable con un guion de texto (HeyGen texto a voz) o tu propio audio."
+      },
+      "speech_custom_voice_id": {
+        "name": "custom_voice_id"
+      },
+      "speech_text": {
+        "name": "texto"
+      },
+      "speech_voice": {
+        "name": "voz"
+      },
+      "speech_voice_speed": {
+        "name": "velocidad de voz"
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenCreateAvatarNode": {
+    "description": "Crea tu propio avatar reutilizable de HeyGen a partir de una foto de una persona o de un prompt de texto (un personaje generado). Introduce el avatar_id resultante en custom_avatar_id de Video de Avatar HeyGen — y guarda el ID para reutilizar el avatar en futuros flujos de trabajo.",
+    "display_name": "Crear Avatar HeyGen",
+    "inputs": {
+      "source": {
+        "name": "fuente",
+        "tooltip": "Genera un nuevo personaje a partir de un prompt de texto, o crea el avatar desde una foto conectada de una persona."
+      },
+      "source_prompt": {
+        "name": "prompt"
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "avatar_id",
+        "tooltip": "ID de look de avatar. Pásalo a custom_avatar_id de Video de Avatar HeyGen; guárdalo para reutilizar el avatar más adelante."
+      },
+      "1": {
+        "name": "vista previa",
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenTalkingPhotoNode": {
+    "description": "Anima cualquier imagen de una persona en un video hablado sincronizado con los labios (HeyGen Avatar IV). Controla el avatar con un guion de texto o tu propio audio.",
+    "display_name": "HeyGen Talking Photo",
+    "inputs": {
+      "aspect_ratio": {
+        "name": "relación de aspecto",
+        "tooltip": "Relación de aspecto de salida. 'auto' sigue la imagen de entrada."
+      },
+      "control_after_generate": {
+        "name": "controlar después de generar"
+      },
+      "expressiveness": {
+        "name": "expresividad",
+        "tooltip": "Qué tan expresivo es el rostro y los gestos animados."
+      },
+      "image": {
+        "name": "imagen",
+        "tooltip": "Imagen de una persona para animar. Se reduce automáticamente si es mayor de 2K."
+      },
+      "resolution": {
+        "name": "resolución",
+        "tooltip": "Resolución del video de salida."
+      },
+      "seed": {
+        "name": "semilla",
+        "tooltip": "No se envía a HeyGen; cámbiala para forzar una nueva ejecución."
+      },
+      "speech": {
+        "name": "voz",
+        "tooltip": "Controla el avatar con un guion de texto (HeyGen texto a voz) o tu propio audio."
+      },
+      "speech_custom_voice_id": {
+        "name": "id_voz_personalizada"
+      },
+      "speech_text": {
+        "name": "texto"
+      },
+      "speech_voice": {
+        "name": "voz"
+      },
+      "speech_voice_speed": {
+        "name": "velocidad_voz"
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenTextToSpeechNode": {
+    "description": "Genera audio de voz a partir de texto usando el motor Starfish TTS de HeyGen. Incluye las voces más populares de HeyGen en 17 idiomas.",
+    "display_name": "HeyGen Texto a Voz",
+    "inputs": {
+      "control_after_generate": {
+        "name": "controlar después de generar"
+      },
+      "custom_voice_id": {
+        "name": "id_voz_personalizada",
+        "tooltip": "ID de voz de HeyGen opcional. Si se establece, sobrescribe la voz seleccionada arriba. La voz debe ser compatible con el motor Starfish."
+      },
+      "seed": {
+        "name": "semilla",
+        "tooltip": "No se envía a HeyGen; cámbiala para forzar una nueva ejecución."
+      },
+      "speed": {
+        "name": "velocidad",
+        "tooltip": "Multiplicador de velocidad de la voz."
+      },
+      "ssml": {
+        "name": "ssml",
+        "tooltip": "Tratar el texto como marcado SSML (para pausas, énfasis y control de pronunciación)."
+      },
+      "text": {
+        "name": "texto",
+        "tooltip": "Texto para sintetizar (hasta 5000 caracteres). El audio generado debe durar al menos 1 segundo."
+      },
+      "voice": {
+        "name": "voz",
+        "tooltip": "Voz a utilizar (seleccionada de las voces Starfish más populares de HeyGen)."
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenVideoTranslateNode": {
+    "description": "Traduce un video hablado a otro idioma. Clona la voz original del hablante y reanima la boca para que coincida con el discurso traducido.",
+    "display_name": "HeyGen Traducción de Video",
+    "inputs": {
+      "control_after_generate": {
+        "name": "controlar después de generar"
+      },
+      "mode": {
+        "name": "modo",
+        "tooltip": "'speed' es más rápido; 'precision' produce una sincronización labial de mayor calidad al doble de precio."
+      },
+      "output_language": {
+        "name": "idioma_de_salida",
+        "tooltip": "Idioma de destino para el video traducido."
+      },
+      "seed": {
+        "name": "semilla",
+        "tooltip": "No se envía a HeyGen; cámbiala para forzar una nueva ejecución."
+      },
+      "speaker_count": {
+        "name": "cantidad_de_hablantes",
+        "tooltip": "Número de hablantes en el video. 0 = detectar automáticamente."
+      },
+      "translate_audio_only": {
+        "name": "solo_traducir_audio",
+        "tooltip": "Solo intercambiar la pista de audio, manteniendo los movimientos originales de la boca (sin sincronización labial)."
+      },
+      "video": {
+        "name": "video",
+        "tooltip": "Video con voz para traducir."
       }
     },
     "outputs": {
@@ -19644,6 +19876,28 @@
       },
       "prompt": {
         "name": "indicación"
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "TextEncodeJoyImageEdit": {
+    "display_name": "TextEncodeJoyImageEdit",
+    "inputs": {
+      "clip": {
+        "name": "clip"
+      },
+      "images": {
+        "name": "imágenes"
+      },
+      "prompt": {
+        "name": "indicador"
+      },
+      "vae": {
+        "name": "vae"
       }
     },
     "outputs": {

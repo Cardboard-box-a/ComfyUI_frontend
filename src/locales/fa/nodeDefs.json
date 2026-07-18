@@ -177,6 +177,32 @@
       }
     }
   },
+  "AnimaLLLiteApply": {
+    "display_name": "اعمال Anima LLLite",
+    "inputs": {
+      "end_percent": {
+        "name": "درصد پایان"
+      },
+      "image": {
+        "name": "تصویر"
+      },
+      "mask": {
+        "name": "ماسک"
+      },
+      "model": {
+        "name": "مدل"
+      },
+      "model_patch": {
+        "name": "patch مدل"
+      },
+      "start_percent": {
+        "name": "درصد شروع"
+      },
+      "strength": {
+        "name": "شدت"
+      }
+    }
+  },
   "AudioAdjustVolume": {
     "description": "تنظیم حجم صدا به میزان مشخص بر حسب دسی‌بل (dB).",
     "display_name": "تنظیم حجم صدا",
@@ -5853,6 +5879,212 @@
       "watermark": {
         "name": "واترمارک",
         "tooltip": "آیا واترمارک تولیدشده توسط هوش مصنوعی به نتیجه اضافه شود یا خیر."
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenAvatarVideoNode": {
+    "description": "تولید ویدئوی ارائه‌دهنده سخنگو از یک آواتار HeyGen. شامل محبوب‌ترین آواتارهای عمومی HeyGen؛ هر شناسه ظاهر (look ID) را می‌توان به عنوان جایگزین وارد کرد.",
+    "display_name": "ویدئوی آواتار HeyGen",
+    "inputs": {
+      "aspect_ratio": {
+        "name": "نسبت تصویر",
+        "tooltip": "نسبت تصویر خروجی. 'auto' از نسبت تصویر منبع آواتار پیروی می‌کند."
+      },
+      "background_color": {
+        "name": "رنگ پس‌زمینه",
+        "tooltip": "رنگ پس‌زمینه یکدست به صورت کد هگزادسیمال (مثلاً '#00ff00'). برای استفاده از پس‌زمینه خود آواتار، خالی بگذارید."
+      },
+      "control_after_generate": {
+        "name": "کنترل پس از تولید"
+      },
+      "custom_avatar_id": {
+        "name": "شناسه آواتار سفارشی",
+        "tooltip": "شناسه ظاهر آواتار HeyGen (اختیاری). در صورت تنظیم، جایگزین آواتار انتخاب‌شده در بالا می‌شود. هر یک از بیش از ۳۰۰۰ ظاهر عمومی HeyGen (یا آواتارهای خصوصی شما) قابل استفاده است."
+      },
+      "engine": {
+        "name": "موتور",
+        "tooltip": "موتور رندر؛ هر گزینه فقط آواتارهایی را نمایش می‌دهد که از آن پشتیبانی می‌کنند. 'auto' همه آواتارها را ارائه می‌دهد و بهترین موتور را انتخاب می‌کند (Avatar IV ترجیح داده می‌شود). Avatar V بالاترین کیفیت، Avatar III مقرون‌به‌صرفه‌ترین است."
+      },
+      "engine_avatar": {
+        "name": "آواتار"
+      },
+      "resolution": {
+        "name": "وضوح تصویر",
+        "tooltip": "وضوح خروجی ویدئو."
+      },
+      "seed": {
+        "name": "seed",
+        "tooltip": "به HeyGen ارسال نمی‌شود؛ برای اجرای مجدد مقدار آن را تغییر دهید."
+      },
+      "speech": {
+        "name": "گفتار",
+        "tooltip": "آواتار را با یک متن (HeyGen text-to-speech) یا صدای خودتان هدایت کنید."
+      },
+      "speech_custom_voice_id": {
+        "name": "شناسه صدای سفارشی"
+      },
+      "speech_text": {
+        "name": "متن"
+      },
+      "speech_voice": {
+        "name": "صدا"
+      },
+      "speech_voice_speed": {
+        "name": "سرعت صدا"
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenCreateAvatarNode": {
+    "description": "آواتار HeyGen اختصاصی خود را از عکس یک فرد یا یک پرامپت متنی (شخصیت تولیدشده) بسازید. شناسه avatar_id به‌دست‌آمده را در custom_avatar_id ویدئوی آواتار HeyGen وارد کنید — و این شناسه را برای استفاده مجدد در جریان‌های کاری آینده ذخیره نمایید.",
+    "display_name": "ساخت آواتار HeyGen",
+    "inputs": {
+      "source": {
+        "name": "منبع",
+        "tooltip": "یک شخصیت جدید از طریق پرامپت متنی تولید کنید یا آواتار را از عکس متصل‌شده یک فرد بسازید."
+      },
+      "source_prompt": {
+        "name": "پرامپت"
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "avatar_id",
+        "tooltip": "شناسه ظاهر آواتار. آن را به custom_avatar_id ویدئوی آواتار HeyGen بدهید؛ برای استفاده مجدد ذخیره کنید."
+      },
+      "1": {
+        "name": "پیش‌نمایش",
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenTalkingPhotoNode": {
+    "description": "هر تصویر از یک فرد را به یک ویدیوی صحبت‌کننده با هماهنگی لب (HeyGen Avatar IV) تبدیل کنید. می‌توانید آن را با یک متن یا صدای خود هدایت کنید.",
+    "display_name": "HeyGen Talking Photo",
+    "inputs": {
+      "aspect_ratio": {
+        "name": "نسبت تصویر",
+        "tooltip": "نسبت تصویر خروجی. مقدار 'auto' مطابق با تصویر ورودی خواهد بود."
+      },
+      "control_after_generate": {
+        "name": "کنترل پس از تولید"
+      },
+      "expressiveness": {
+        "name": "بیان‌گری",
+        "tooltip": "میزان بیان‌گری چهره و حرکات متحرک."
+      },
+      "image": {
+        "name": "تصویر",
+        "tooltip": "تصویر فردی که قرار است متحرک شود. در صورت بزرگ‌تر بودن از ۲K به طور خودکار کوچک می‌شود."
+      },
+      "resolution": {
+        "name": "وضوح",
+        "tooltip": "وضوح ویدیوی خروجی."
+      },
+      "seed": {
+        "name": "بذر",
+        "tooltip": "به HeyGen ارسال نمی‌شود؛ با تغییر آن اجرای مجدد انجام می‌شود."
+      },
+      "speech": {
+        "name": "گفتار",
+        "tooltip": "آواتار را با یک متن (HeyGen text-to-speech) یا صدای خود هدایت کنید."
+      },
+      "speech_custom_voice_id": {
+        "name": "custom_voice_id"
+      },
+      "speech_text": {
+        "name": "متن"
+      },
+      "speech_voice": {
+        "name": "صدا"
+      },
+      "speech_voice_speed": {
+        "name": "سرعت صدا"
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenTextToSpeechNode": {
+    "description": "تولید صدای گفتاری از متن با استفاده از موتور Starfish TTS شرکت HeyGen. شامل محبوب‌ترین صداهای HeyGen در ۱۷ زبان.",
+    "display_name": "HeyGen تبدیل متن به گفتار",
+    "inputs": {
+      "control_after_generate": {
+        "name": "کنترل پس از تولید"
+      },
+      "custom_voice_id": {
+        "name": "custom_voice_id",
+        "tooltip": "شناسه صدای HeyGen (اختیاری). در صورت تنظیم، صدای انتخاب شده در بالا را نادیده می‌گیرد. صدا باید از موتور Starfish پشتیبانی کند."
+      },
+      "seed": {
+        "name": "بذر",
+        "tooltip": "به HeyGen ارسال نمی‌شود؛ با تغییر آن اجرای مجدد انجام می‌شود."
+      },
+      "speed": {
+        "name": "سرعت",
+        "tooltip": "ضریب سرعت گفتار."
+      },
+      "ssml": {
+        "name": "SSML",
+        "tooltip": "متن را به عنوان نشانه‌گذاری SSML در نظر بگیرید (برای مکث، تأکید و کنترل تلفظ)."
+      },
+      "text": {
+        "name": "متن",
+        "tooltip": "متنی که باید تبدیل به گفتار شود (حداکثر ۵۰۰۰ کاراکتر). صدای تولید شده باید حداقل ۱ ثانیه باشد."
+      },
+      "voice": {
+        "name": "صدا",
+        "tooltip": "صدایی که استفاده می‌شود (منتخب از محبوب‌ترین صداهای سازگار با Starfish شرکت HeyGen)."
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "HeyGenVideoTranslateNode": {
+    "description": "یک ویدیوی گفتاری را به زبان دیگری ترجمه می‌کند. صدای گوینده اصلی را شبیه‌سازی کرده و حرکات دهان را با گفتار ترجمه‌شده هماهنگ می‌کند.",
+    "display_name": "ترجمه ویدیو HeyGen",
+    "inputs": {
+      "control_after_generate": {
+        "name": "کنترل پس از تولید"
+      },
+      "mode": {
+        "name": "حالت",
+        "tooltip": "حالت 'speed' سریع‌تر است؛ حالت 'precision' هماهنگی لب با کیفیت بالاتر (با دو برابر هزینه) را ارائه می‌دهد."
+      },
+      "output_language": {
+        "name": "زبان خروجی",
+        "tooltip": "زبان مقصد برای ویدیوی ترجمه‌شده."
+      },
+      "seed": {
+        "name": "seed",
+        "tooltip": "به HeyGen ارسال نمی‌شود؛ برای اجرای مجدد مقدار آن را تغییر دهید."
+      },
+      "speaker_count": {
+        "name": "تعداد گویندگان",
+        "tooltip": "تعداد گویندگان در ویدیو. ۰ = تشخیص خودکار."
+      },
+      "translate_audio_only": {
+        "name": "فقط ترجمه صدا",
+        "tooltip": "فقط ترک صوتی را جایگزین می‌کند و حرکات دهان اصلی را حفظ می‌کند (بدون هماهنگی لب)."
+      },
+      "video": {
+        "name": "ویدیو",
+        "tooltip": "ویدیویی با گفتار برای ترجمه."
       }
     },
     "outputs": {
@@ -19644,6 +19876,28 @@
       },
       "prompt": {
         "name": "پرامپت"
+      }
+    },
+    "outputs": {
+      "0": {
+        "tooltip": null
+      }
+    }
+  },
+  "TextEncodeJoyImageEdit": {
+    "display_name": "TextEncodeJoyImageEdit",
+    "inputs": {
+      "clip": {
+        "name": "clip"
+      },
+      "images": {
+        "name": "تصاویر"
+      },
+      "prompt": {
+        "name": "پرامپت"
+      },
+      "vae": {
+        "name": "vae"
       }
     },
     "outputs": {
