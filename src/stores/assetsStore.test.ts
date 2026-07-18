@@ -246,6 +246,26 @@ describe('assetsStore - Refactored (Option A)', () => {
       expect(store.historyLoading).toBe(false)
     })
 
+    it('should refetch after an update requested during an in-flight load', async () => {
+      let resolveFirstLoad!: (jobs: JobListItem[]) => void
+      const firstLoad = new Promise<JobListItem[]>((resolve) => {
+        resolveFirstLoad = resolve
+      })
+      vi.mocked(api.getHistory)
+        .mockReturnValueOnce(firstLoad)
+        .mockResolvedValueOnce([createMockJobItem(1)])
+
+      const firstUpdate = store.updateHistory()
+      const secondUpdate = store.updateHistory()
+      resolveFirstLoad([])
+
+      await Promise.all([firstUpdate, secondUpdate])
+
+      expect(api.getHistory).toHaveBeenCalledTimes(2)
+      expect(store.historyAssets.map((asset) => asset.id)).toEqual(['prompt_1'])
+      expect(store.historyLoading).toBe(false)
+    })
+
     it('should skip text-only jobs without breaking sibling image jobs', async () => {
       const mockHistory: JobListItem[] = [
         createMockJobItem(0),

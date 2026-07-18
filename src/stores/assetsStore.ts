@@ -213,26 +213,36 @@ export const useAssetsStore = defineStore('assets', () => {
   const historyAssets = ref<AssetItem[]>([])
   const historyLoading = ref(false)
   const historyError = ref<unknown>(null)
+  let historyUpdateInFlight: Promise<void> | null = null
+  let historyUpdateRequested = false
 
-  /**
-   * Initial load of history assets
-   */
-  const updateHistory = async () => {
+  async function processHistoryUpdates() {
     historyLoading.value = true
-    historyError.value = null
     try {
-      await fetchHistoryAssets(false)
-      historyAssets.value = allHistoryItems.value
-    } catch (err) {
-      console.error('Error fetching history assets:', err)
-      historyError.value = err
-      // Keep existing data when error occurs
-      if (!historyAssets.value.length) {
-        historyAssets.value = []
+      while (historyUpdateRequested) {
+        historyUpdateRequested = false
+        historyError.value = null
+        try {
+          await fetchHistoryAssets(false)
+          historyAssets.value = allHistoryItems.value
+        } catch (err) {
+          console.error('Error fetching history assets:', err)
+          historyError.value = err
+          if (!historyAssets.value.length) {
+            historyAssets.value = []
+          }
+        }
       }
     } finally {
       historyLoading.value = false
+      historyUpdateInFlight = null
     }
+  }
+
+  async function updateHistory() {
+    historyUpdateRequested = true
+    historyUpdateInFlight ??= processHistoryUpdates()
+    await historyUpdateInFlight
   }
 
   /**
