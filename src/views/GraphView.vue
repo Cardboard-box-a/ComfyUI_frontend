@@ -72,7 +72,10 @@ import { getShellLayoutSnapshot } from '@/platform/telemetry/utils/getShellLayou
 import { useFrontendVersionMismatchWarning } from '@/platform/updates/common/useFrontendVersionMismatchWarning'
 import { useVersionCompatibilityStore } from '@/platform/updates/common/versionCompatibilityStore'
 import { useCanvasStore } from '@/renderer/core/canvas/canvasStore'
-import type { StatusWsMessageStatus } from '@/schemas/apiSchema'
+import type {
+  ExecutionSuccessWsMessage,
+  StatusWsMessageStatus
+} from '@/schemas/apiSchema'
 import { api } from '@/scripts/api'
 import { app } from '@/scripts/app'
 import { setupAutoQueueHandler } from '@/services/autoQueueService'
@@ -242,12 +245,14 @@ const onStatus = async (e: CustomEvent<StatusWsMessageStatus>) => {
   }
 }
 
-const onExecutionSuccess = async () => {
+const onExecutionSuccess = async (
+  e: CustomEvent<ExecutionSuccessWsMessage>
+) => {
   await queueStore.update()
   // Only update assets if the assets sidebar is currently open
   // When sidebar is closed, AssetsSidebarTab.vue will refresh on mount
   if (sidebarTabStore.activeSidebarTabId === 'assets' || linearMode.value) {
-    await assetsStore.updateHistory()
+    await assetsStore.updateHistory(e.detail.prompt_id)
   }
 }
 

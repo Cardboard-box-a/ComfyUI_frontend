@@ -94,6 +94,11 @@ function mapHistoryToAssets(historyItems: JobListItem[]): AssetItem[] {
 const BATCH_SIZE = 200
 const MAX_HISTORY_ITEMS = 1000 // Maximum items to keep in memory
 const FLAT_OUTPUT_PAGE_SIZE = 200
+const HISTORY_VISIBILITY_RETRY_DELAYS_MS = [100, 250, 500, 1000] as const
+
+function waitForHistoryVisibility(delay: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, delay))
+}
 
 export const useAssetsStore = defineStore('assets', () => {
   const assetDownloadStore = useAssetDownloadStore()
@@ -150,7 +155,7 @@ export const useAssetsStore = defineStore('assets', () => {
    * Fetch history assets with pagination support
    * @param loadMore - true for pagination (append), false for initial load (replace)
    */
-  const fetchHistoryAssets = async (loadMore = false): Promise<AssetItem[]> => {
+  const fetchHistoryAssets = async (loadMore = false) => {
     // Reset state for initial load
     if (!loadMore) {
       historyOffset.value = 0
@@ -207,7 +212,7 @@ export const useAssetsStore = defineStore('assets', () => {
       removed.forEach((item) => loadedIds.delete(item.id))
     }
 
-    return allHistoryItems.value
+    return new Set(history.map((job) => job.id))
   }
 
   const historyAssets = ref<AssetItem[]>([])
@@ -215,15 +220,17 @@ export const useAssetsStore = defineStore('assets', () => {
   const historyError = ref<unknown>(null)
   let historyUpdateInFlight: Promise<void> | null = null
   let historyUpdateRequested = false
+  const expectedHistoryJobAttempts = new Map<string, number>()
 
   async function processHistoryUpdates() {
     historyLoading.value = true
     try {
-      while (historyUpdateRequested) {
+      while (historyUpdateRequested || expectedHistoryJobAttempts.size > 0) {
         historyUpdateRequested = false
         historyError.value = null
+        let fetchedJobIds = new Set<string>()
         try {
-          await fetchHistoryAssets(false)
+          fetchedJobIds = await fetchHistoryAssets(false)
           historyAssets.value = allHistoryItems.value
         } catch (err) {
           console.error('Error fetching history assets:', err)
@@ -232,6 +239,34 @@ export const useAssetsStore = defineStore('assets', () => {
             historyAssets.value = []
           }
         }
+
+        for (const [jobId, attempts] of expectedHistoryJobAttempts) {
+          if (fetchedJobIds.has(jobId)) {
+            expectedHistoryJobAttempts.delete(jobId)
+            continue
+          }
+
+          const nextAttempt = attempts + 1
+          if (nextAttempt > HISTORY_VISIBILITY_RETRY_DELAYS_MS.length) {
+            expectedHistoryJobAttempts.delete(jobId)
+            console.warn(
+              `Generated asset history did not expose completed job ${jobId}`
+            )
+          } else {
+            expectedHistoryJobAttempts.set(jobId, nextAttempt)
+          }
+        }
+
+        if (expectedHistoryJobAttempts.size > 0) {
+          const nextDelayIndex = Math.min(
+            ...Array.from(expectedHistoryJobAttempts.values(), (attempts) =>
+              Math.max(attempts - 1, 0)
+            )
+          )
+          await waitForHistoryVisibility(
+            HISTORY_VISIBILITY_RETRY_DELAYS_MS[nextDelayIndex]
+          )
+        }
       }
     } finally {
       historyLoading.value = false
@@ -239,7 +274,10 @@ export const useAssetsStore = defineStore('assets', () => {
     }
   }
 
-  async function updateHistory() {
+  async function updateHistory(expectedJobId?: string) {
+    if (expectedJobId && !expectedHistoryJobAttempts.has(expectedJobId)) {
+      expectedHistoryJobAttempts.set(expectedJobId, 0)
+    }
     historyUpdateRequested = true
     historyUpdateInFlight ??= processHistoryUpdates()
     await historyUpdateInFlight

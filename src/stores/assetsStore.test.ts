@@ -266,6 +266,28 @@ describe('assetsStore - Refactored (Option A)', () => {
       expect(store.historyLoading).toBe(false)
     })
 
+    it('should retry until the completed job is visible in history', async () => {
+      vi.useFakeTimers()
+      try {
+        vi.mocked(api.getHistory)
+          .mockResolvedValueOnce([])
+          .mockResolvedValueOnce([])
+          .mockResolvedValueOnce([createMockJobItem(1)])
+
+        const update = store.updateHistory('prompt_1')
+        await vi.runAllTimersAsync()
+        await update
+
+        expect(api.getHistory).toHaveBeenCalledTimes(3)
+        expect(store.historyAssets.map((asset) => asset.id)).toEqual([
+          'prompt_1'
+        ])
+        expect(store.historyLoading).toBe(false)
+      } finally {
+        vi.useRealTimers()
+      }
+    })
+
     it('should skip text-only jobs without breaking sibling image jobs', async () => {
       const mockHistory: JobListItem[] = [
         createMockJobItem(0),
