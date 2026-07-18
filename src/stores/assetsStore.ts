@@ -19,6 +19,7 @@ import type { PaginationOptions } from '@/platform/assets/services/assetService'
 import { isCloud } from '@/platform/distribution/types'
 import type { JobListItem } from '@/platform/remote/comfyui/jobs/jobTypes'
 import { api } from '@/scripts/api'
+import { getJobDetail } from '@/services/jobOutputCache'
 
 import { TaskItemImpl } from './queueStore'
 import { useAssetDownloadStore } from './assetDownloadStore'
@@ -58,37 +59,40 @@ async function fetchInputFilesFromCloud(): Promise<AssetItem[]> {
 /**
  * Convert history job items to asset items
  */
-function mapHistoryToAssets(historyItems: JobListItem[]): AssetItem[] {
-  const assetItems: AssetItem[] = []
+async function mapHistoryToAssets(
+  historyItems: JobListItem[]
+): Promise<AssetItem[]> {
+  const assetItems = await Promise.all(
+    historyItems.map(async (job): Promise<AssetItem | undefined> => {
+      if (job.status !== 'completed') return
 
-  for (const job of historyItems) {
-    // Only process completed jobs with preview output
-    if (job.status !== 'completed' || !job.preview_output) {
-      continue
-    }
+      let task = new TaskItemImpl(job)
+      if (!task.previewOutput && (job.outputs_count ?? 0) > 0) {
+        const detail = await getJobDetail(job.id)
+        task = new TaskItemImpl(job, detail?.outputs)
+      }
 
-    const task = new TaskItemImpl(job)
+      if (!task.previewOutput) return
 
-    if (!task.previewOutput) {
-      continue
-    }
+      const assetItem = mapTaskOutputToAssetItem(task, task.previewOutput)
 
-    const assetItem = mapTaskOutputToAssetItem(task, task.previewOutput)
+      assetItem.user_metadata = {
+        ...assetItem.user_metadata,
+        outputCount: task.outputsCount ?? task.previewableOutputs.length,
+        allOutputs: task.previewableOutputs
+      }
 
-    assetItem.user_metadata = {
-      ...assetItem.user_metadata,
-      outputCount: task.outputsCount ?? task.previewableOutputs.length,
-      allOutputs: task.previewableOutputs
-    }
-
-    assetItems.push(assetItem)
-  }
-
-  return assetItems.sort(
-    (a, b) =>
-      new Date(b.created_at ?? 0).getTime() -
-      new Date(a.created_at ?? 0).getTime()
+      return assetItem
+    })
   )
+
+  return assetItems
+    .filter((asset) => asset !== undefined)
+    .sort(
+      (a, b) =>
+        new Date(b.created_at ?? 0).getTime() -
+        new Date(a.created_at ?? 0).getTime()
+    )
 }
 
 const BATCH_SIZE = 200
@@ -170,7 +174,7 @@ export const useAssetsStore = defineStore('assets', () => {
     })
 
     // Convert JobListItems to AssetItems
-    const newAssets = mapHistoryToAssets(history)
+    const newAssets = await mapHistoryToAssets(history)
 
     if (loadMore) {
       // Filter out duplicates and insert in sorted order

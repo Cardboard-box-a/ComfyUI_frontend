@@ -11,6 +11,7 @@ import type {
 } from '@/platform/assets/schemas/assetSchema'
 import type { JobListItem } from '@/platform/remote/comfyui/jobs/jobTypes'
 import { assetService } from '@/platform/assets/services/assetService'
+import { getJobDetail } from '@/services/jobOutputCache'
 
 // Mock the api module
 vi.mock('@/scripts/api', () => ({
@@ -38,6 +39,10 @@ vi.mock('@/platform/assets/services/assetService', () => ({
   },
   INPUT_TAG: 'input',
   OUTPUT_TAG: 'output'
+}))
+
+vi.mock('@/services/jobOutputCache', () => ({
+  getJobDetail: vi.fn()
 }))
 
 // Mock distribution type - hoisted so it can be changed per test
@@ -120,9 +125,47 @@ vi.mock('@/stores/queueStore', () => ({
     public jobId: string
     public outputsCount: number | null
 
-    constructor(public job: JobListItem) {
+    constructor(
+      public job: JobListItem,
+      outputs?: Record<string, Record<string, unknown[]>>
+    ) {
       this.jobId = job.id
       this.outputsCount = job.outputs_count ?? null
+      if (outputs) {
+        this.flatOutputs = Object.values(outputs).flatMap((nodeOutput) =>
+          Object.values(nodeOutput).flatMap((items) =>
+            items.flatMap((item) => {
+              if (
+                !item ||
+                typeof item !== 'object' ||
+                !('filename' in item) ||
+                typeof item.filename !== 'string'
+              ) {
+                return []
+              }
+              return [
+                {
+                  supportsPreview: true,
+                  filename: item.filename,
+                  subfolder:
+                    'subfolder' in item && typeof item.subfolder === 'string'
+                      ? item.subfolder
+                      : '',
+                  type:
+                    'type' in item && typeof item.type === 'string'
+                      ? item.type
+                      : 'output',
+                  url: `http://test.com/${item.filename}`
+                }
+              ]
+            })
+          )
+        )
+        const previewable = this.flatOutputs.filter((o) => o.supportsPreview)
+        this.previewOutput =
+          previewable.findLast((o) => o.type === 'output') ?? previewable.at(-1)
+        return
+      }
       if (mockOutputOverrides.value) {
         this.flatOutputs = mockOutputOverrides.value
         const previewable = mockOutputOverrides.value.filter(
@@ -205,6 +248,7 @@ describe('assetsStore - Refactored (Option A)', () => {
     setActivePinia(createTestingPinia({ stubActions: false }))
     store = useAssetsStore()
     vi.clearAllMocks()
+    vi.mocked(getJobDetail).mockResolvedValue(undefined)
   })
 
   describe('Initial Load', () => {
@@ -313,6 +357,43 @@ describe('assetsStore - Refactored (Option A)', () => {
         'prompt_0',
         'prompt_2'
       ])
+    })
+
+    it('should load full outputs when a text summary hides an image', async () => {
+      const job = {
+        id: 'prompt_text_first',
+        status: 'completed',
+        create_time: 2000,
+        priority: 2000,
+        outputs_count: 2,
+        preview_output: {
+          content: '1024',
+          nodeId: '185',
+          mediaType: 'text'
+        }
+      } satisfies JobListItem
+      vi.mocked(api.getHistory).mockResolvedValue([job])
+      vi.mocked(getJobDetail).mockResolvedValue({
+        ...job,
+        outputs: {
+          '185': { text: ['1024'] },
+          '115': {
+            images: [
+              {
+                filename: 'ComfyUI_temp_test_00001_.png',
+                subfolder: '',
+                type: 'temp'
+              }
+            ]
+          }
+        }
+      })
+
+      await store.updateHistory()
+
+      expect(getJobDetail).toHaveBeenCalledWith('prompt_text_first')
+      expect(store.historyAssets).toHaveLength(1)
+      expect(store.historyAssets[0].name).toBe('ComfyUI_temp_test_00001_.png')
     })
   })
 
